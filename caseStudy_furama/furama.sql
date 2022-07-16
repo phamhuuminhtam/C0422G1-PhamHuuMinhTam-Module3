@@ -137,7 +137,7 @@ INSeRT into nhan_vien (ma_nhan_vien, ho_ten, ngay_sinh, so_cmnd, luong, so_dien_
  ('7', 'Nguyễn Hữu Hà', '1993-01-01', '534323231', '8000000', '0941234553', 'nhh0101@gmail.com', '4 Nguyễn Chí Thanh, Huế', '2', '3', '2'),
  ('8', 'Nguyễn Hà Đông', '1989-09-03', '234414123', '9000000', '0642123111', 'donghanguyen@gmail.com', '111 Hùng Vương, Hà Nội', '2', '4', '4'),
  ('9', 'Tòng Hoang', '1982-09-03', '256781231', '6000000', '0245144444', 'hoangtong@gmail.com', '213 Hàm Nghi, đà nẵng', '2', '4', '4'),
- ('10', 'Nguyễn công Đạo', '1994-01-08', '755434343', '8000000', '0988767111', 'nguyencongdao12@gmail.com', '6 Hoà khánh, đồng Nai', '2', '3', '2');classclass
+ ('10', 'Nguyễn công Đạo', '1994-01-08', '755434343', '8000000', '0988767111', 'nguyencongdao12@gmail.com', '6 Hoà khánh, đồng Nai', '2', '3', '2');
 select * from nhan_vien;
 select * from loai_khach;
 INSERT INTO loai_khach (ma_loai_khach, ten_loai_khach) vALUEs ('1', 'diamond');
@@ -171,21 +171,21 @@ SELECT * FROM khach_hang;
 
 INSERT INTO dich_vu (ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, so_nguoi_toi_da, ma_kieu_thue, ma_loai_dich_vu, tieu_chuan_phong, mo_ta_tien_nghi_khac, dien_tich_ho_boi, so_tang, dich_vu_mien_phi_di_kem) 
 VALUES 
-('1', 'Villa Beach Front', '25000', '1000000', '10', '3', '1', 'vip', 'Có hồ bơi', '500', '4', NULL),
-('2', 'House Princess 01', '14000', '5000000', '7', '2', '2', 'vip', 'Có thêm bếp nướng', NULL, '3', NULL),
-('3', 'Room Twin 01', '5000', '1000000', '2', '4', '3', 'normal', 'Có tivi', NULL, NULL, '1 Xe máy, 1 Xe đạp'),
-('4', 'Villa No Beach Front', '22000', '9000000', '8', '3', '1', 'normal', 'Có hồ bơi', '300', '3', NULL),
-('5', 'House Princess 02', '10000', '4000000', '5', '3', '2', 'normal', 'Có thêm bếp nướng', NULL, '2', NULL),
-('6', 'Room Twin 02', '3000', '900000', '2', '4', '3', 'normal', 'Có tivi', NULL, NULL, '1 Xe máy');
+('1', 'Villa Beach Front', '25000', 1000000, '10', '3', '1', 'vip', 'Có hồ bơi', '500', '4', NULL),
+('2', 'House Princess 01', '14000', 5000000, '7', '2', '2', 'vip', 'Có thêm bếp nướng', NULL, '3', NULL),
+('3', 'Room Twin 01', '5000', 1000000, '2', '4', '3', 'normal', 'Có tivi', NULL, NULL, '1 Xe máy, 1 Xe đạp'),
+('4', 'Villa No Beach Front', '22000', 9000000, '8', '3', '1', 'normal', 'Có hồ bơi', '300', '3', NULL),
+('5', 'House Princess 02', '10000', 4000000, '5', '3', '2', 'normal', 'Có thêm bếp nướng', NULL, '2', NULL),
+('6', 'Room Twin 02', '3000', 900000, '2', '4', '3', 'normal', 'Có tivi', NULL, NULL, '1 Xe máy');
 
 INSERT INTO dich_vu_di_kem (ma_dich_vu_di_kem, ten_dich_vu_di_kem, gia, don_vi, trang_thai) 
 VALUES 
- ('1', 'Karaoke', '10000', 'giờ', 'tiện nghi, hiện tại'),
- ('2', 'Thuê xe máy', '10000', 'chiếc', 'hỏng 1 xe'),
- ('3', 'Thuê xe đạp', '20000', 'chiếc', 'tốt'),
- ('4', 'Buffet buổi sáng', '15000', 'suất', 'đầy đủ đồ ăn, tráng miệng'),
- ('5', 'Buffet buổi trưa', '90000', 'suất', 'đầy đủ đồ ăn, tráng miệng'),
- ('6', 'Buffet buổi tối', '16000', 'suất', 'đầy đủ đồ ăn, tráng miệng');
+ ('1', 'Karaoke', 10000, 'giờ', 'tiện nghi, hiện tại'),
+ ('2', 'Thuê xe máy', 10000, 'chiếc', 'hỏng 1 xe'),
+ ('3', 'Thuê xe đạp', 20000, 'chiếc', 'tốt'),
+ ('4', 'Buffet buổi sáng', 15000, 'suất', 'đầy đủ đồ ăn, tráng miệng'),
+ ('5', 'Buffet buổi trưa', 90000, 'suất', 'đầy đủ đồ ăn, tráng miệng'),
+ ('6', 'Buffet buổi tối', 16000, 'suất', 'đầy đủ đồ ăn, tráng miệng');
 
 INSERT INTO hop_dong (ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, ma_nhan_vien, ma_khach_hang, ma_dich_vu) 
 VALUES  
@@ -204,15 +204,185 @@ VALUES
 
 INSERT INTO hop_dong_chi_tiet (ma_hop_dong_chi_tiet, ma_hop_dong, ma_dich_vu_di_kem, so_luong)
  VALUES 
- ('1', '2', '4', '5'),
- ('2', '2', '5', '8'),
- ('3', '2', '6', '15'),
- ('4', '3', '1', '1'),
- ('5', '3', '2', '11'),
- ('6', '1', '3', '1'),
- ('7', '1', '2', '2'),
- ('8', '12', '2', '2');
+ ('1', '2', '4', 5),
+ ('2', '2', '5', 8),
+ ('3', '2', '6', 15),
+ ('4', '3', '1', 1),
+ ('5', '3', '2', 11),
+ ('6', '1', '3', 1),
+ ('7', '1', '2', 2),
+ ('8', '12', '2', 2);
+ 
+-- câu 2-- 
+select * from nhan_vien where nhan_vien.ho_ten regexp "^[HTK]" and char_length(ho_ten) <=15;
+
+-- câu 3-- class
+select	* from khach_hang where (timestampdiff(year,ngay_sinh,curdate()) >=18 and timestampdiff(year,ngay_sinh,curdate()) <=50) and (dia_chi like "%Đà Nẵng" or dia_chi like "%Quảng Trị");
+
+-- câu 4-- 	Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu lần. Kết quả hiển thị được sắp xếp tăng dần theo số lần đặt phòng của khách hàng. Chỉ đếm những khách hàng nào có Tên loại khách hàng là “Diamond”.
+
+SELECT 
+    khach_hang.ma_khach_hang,
+    khach_hang.ho_ten,
+    COUNT(*) AS so_lan_dat_phong
+FROM
+    loai_khach
+        JOIN
+    khach_hang ON loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+        JOIN
+    hop_dong ON hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
+WHERE
+    loai_khach.ma_loai_khach = '1'
+GROUP BY hop_dong.ma_khach_hang
+ORDER BY so_lan_dat_phong;
+
+-- câu 5-- ma_khach_hang, ho_ten, ten_loai_khach, ma_hop_dong, ten_dich_vu, ngay_lam_hop_dong, ngay_ket_thuc, tong_tien -- 
+-- (những khách hàng nào chưa từng đặt phòng cũng phải hiển thị ra).-- 
+SELECT 
+    khach_hang.ma_khach_hang,
+    khach_hang.ho_ten,
+    loai_khach.ten_loai_khach,
+    hop_dong.ma_hop_dong,
+    dich_vu.ten_dich_vu,
+    hop_dong.ngay_lam_hop_dong,
+    hop_dong.ngay_ket_thuc,
+    CASE
+        WHEN hop_dong_chi_tiet.so_luong IS NULL THEN SUM(dich_vu.chi_phi_thue)
+        ELSE SUM(dich_vu.chi_phi_thue + hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia)
+    END AS tong_tien
+FROM
+    loai_khach
+        LEFT JOIN
+    khach_hang ON loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+        LEFT JOIN
+    hop_dong ON hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
+        LEFT JOIN
+    dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+        LEFT JOIN
+    hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+        LEFT JOIN
+    dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
+GROUP BY CASE
+    WHEN hop_dong.ma_hop_dong IS NULL THEN ho_ten
+    ELSE hop_dong.ma_hop_dong
+END;
+
+-- câu 6.	Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, ten_loai_dich_vu của tất cả các loại dịch vụ chưa từng được khách hàng thực hiện đặt từ quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).-- 
+SELECT 
+    ma_dich_vu,
+    ten_dich_vu,
+    dien_tich,
+    chi_phi_thue,
+    ten_loai_dich_vu
+FROM
+    (SELECT 
+        ten_dich_vu,
+            hop_dong.ma_dich_vu,
+            ngay_lam_hop_dong,
+            dich_vu.dien_tich,
+            dich_vu.chi_phi_thue,
+            loai_dich_vu.ten_loai_dich_vu AS ten_loai_dich_vu
+    FROM
+        hop_dong
+    JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+    JOIN loai_dich_vu ON dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+    GROUP BY ten_dich_vu) AS table1
+WHERE
+    NOT (MONTH(ngay_lam_hop_dong) IN (1 , 2, 3)
+        AND YEAR(ngay_lam_hop_dong) = 2021);
+
+-- 7.	Hiển thị thông tin ma_dich_vu, ten_dich_vu, dien_tich, so_nguoi_toi_da, chi_phi_thue, ten_loai_dich_vu của tất cả các loại dịch vụ đã từng được khách hàng đặt phòng trong năm 2020 nhưng chưa từng được khách hàng đặt phòng trong năm 2021
+SELECT 
+    table1.ma_dich_vu,
+    table1.ten_dich_vu,
+    table1.dien_tich,
+    table1.so_nguoi_toi_da,
+    table1.chi_phi_thue,
+    table1.ten_loai_dich_vu
+FROM
+    (SELECT 
+        ten_dich_vu,
+            hop_dong.ma_dich_vu,
+            ngay_lam_hop_dong,
+            dich_vu.dien_tich,
+            dich_vu.chi_phi_thue,
+            dich_vu.so_nguoi_toi_da,
+            loai_dich_vu.ten_loai_dich_vu AS ten_loai_dich_vu
+    FROM
+        hop_dong
+    JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+    JOIN loai_dich_vu ON dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+    WHERE
+        YEAR(ngay_lam_hop_dong) = 2020
+    GROUP BY ten_dich_vu) AS table1
+        LEFT JOIN
+    (SELECT 
+        ten_dich_vu,
+            hop_dong.ma_dich_vu,
+            ngay_lam_hop_dong,
+            dich_vu.dien_tich,
+            dich_vu.chi_phi_thue,
+            dich_vu.so_nguoi_toi_da,
+            loai_dich_vu.ten_loai_dich_vu AS ten_loai_dich_vu
+    FROM
+        hop_dong
+    JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+    JOIN loai_dich_vu ON dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+    WHERE
+        YEAR(ngay_lam_hop_dong) = 2021
+    GROUP BY ten_dich_vu) AS table2 ON table1.ten_dich_vu = table2.ten_dich_vu
+WHERE
+    table2.ten_dich_vu IS NULL;
+    
+  --   8.	Hiển thị thông tin ho_ten khách hàng có trong hệ thống, với yêu cầu ho_ten không trùng nhau.
+  
+  SELECT 
+    table1.ho_ten
+FROM
+    (SELECT 
+        ho_ten, COUNT(*)
+    FROM
+        khach_hang
+    GROUP BY ho_ten
+    HAVING COUNT(*) > 1) AS table1;
+  
+   SELECT DISTINCT
+    ho_ten
+FROM
+    khach_hang;
+  
+--   9.	Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng trong năm 2021 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng.
+
+SELECT 
+    MONTH(ngay_lam_hop_dong), COUNT(ma_hop_dong)
+FROM
+    hop_dong
+WHERE
+    YEAR(ngay_lam_hop_dong) = 2021
+GROUP BY MONTH(ngay_lam_hop_dong)
+ORDER BY MONTH(ngay_lam_hop_dong);
+
+-- 10.	Hiển thị thông tin tương ứng với từng hợp đồng thì đã sử dụng bao nhiêu dịch vụ đi kèm. Kết quả hiển thị bao gồm ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, so_luong_dich_vu_di_kem 
+
+SELECT 
+    hop_dong.ma_hop_dong,
+    ngay_lam_hop_dong,
+    ngay_ket_thuc,
+    tien_dat_coc,
+    SUM(so_luong) AS so_luong_dich_vu_di_kem
+FROM
+    hop_dong
+        LEFT JOIN
+    hop_dong_chi_tiet ON hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+        LEFT JOIN
+    dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
+GROUP BY ma_hop_dong
 
 
+  
 
+ 
 
+  
+
+   
