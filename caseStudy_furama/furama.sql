@@ -275,8 +275,8 @@ SELECT
     dich_vu.chi_phi_thue,
     loai_dich_vu.ten_loai_dich_vu
 FROM
-    ((SELECT 
-        ten_dich_vu,
+    (SELECT 
+			ten_dich_vu,
             hop_dong.ma_dich_vu,
             ngay_lam_hop_dong,
             dich_vu.dien_tich,
@@ -287,7 +287,7 @@ FROM
     WHERE
         (MONTH(ngay_lam_hop_dong) IN (1 , 2, 3)
             AND YEAR(ngay_lam_hop_dong) = 2021)) AS table1
-    RIGHT JOIN dich_vu ON table1.ten_dich_vu = dich_vu.ten_dich_vu)
+    RIGHT JOIN dich_vu ON table1.ten_dich_vu = dich_vu.ten_dich_vu
         JOIN
     loai_dich_vu ON dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
 WHERE
@@ -380,7 +380,71 @@ FROM
     dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
 GROUP BY ma_hop_dong;
 
-
+-- 11.	Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
+SELECT 
+    dich_vu_di_kem.ma_dich_vu_di_kem,
+    dich_vu_di_kem.ten_dich_vu_di_kem
+FROM
+    loai_khach
+        JOIN
+    khach_hang ON loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+        JOIN
+    hop_dong ON khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
+        JOIN
+    hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+        JOIN
+    dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
+WHERE
+    loai_khach.ma_loai_khach = 1
+        AND (dia_chi LIKE '%Vinh'
+        OR dia_chi LIKE '%Quảng Ngãi');
+        
+-- 12.	Hiển thị thông tin ma_hop_dong, ho_ten (nhân viên), ho_ten (khách hàng), so_dien_thoai (khách hàng), ten_dich_vu, so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem), tien_dat_coc của tất cả các dịch vụ đã từng được khách hàng đặt vào 3 tháng cuối năm 2020 nhưng chưa từng được khách hàng đặt vào 6 tháng đầu năm 2021.
+SELECT 
+    table1.ma_hop_dong,
+    table1.ho_ten_nhan_vien,
+    table1.ho_ten_khach_hang,
+    table1.so_dien_thoai,
+    table1.ma_dich_vu,
+    table1.ten_dich_vu,
+    table1.so_luong_dich_vu_di_kem,
+    table1.tien_dat_coc
+FROM
+    (SELECT 
+        hop_dong.ma_hop_dong,
+            nhan_vien.ho_ten AS ho_ten_nhan_vien,
+            khach_hang.ho_ten AS ho_ten_khach_hang,
+            khach_hang.so_dien_thoai,
+            dich_vu.ten_dich_vu,
+            dich_vu.ma_dich_vu,
+            SUM(hop_dong_chi_tiet.so_luong) AS so_luong_dich_vu_di_kem,
+            hop_dong.tien_dat_coc,
+            hop_dong.ngay_lam_hop_dong
+    FROM
+        loai_khach
+    LEFT JOIN khach_hang ON loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+    LEFT JOIN hop_dong ON khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
+    LEFT JOIN hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+    LEFT JOIN dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
+    LEFT JOIN nhan_vien ON hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien
+    LEFT JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+    WHERE
+        MONTH(ngay_lam_hop_dong) IN (10 , 11, 12)
+            AND YEAR(ngay_lam_hop_dong) = 2020
+    GROUP BY khach_hang.ho_ten) AS table1
+        LEFT JOIN
+    (SELECT 
+        dich_vu.ten_dich_vu, hop_dong.ngay_lam_hop_dong
+    FROM
+        hop_dong
+    LEFT JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+    WHERE
+        (MONTH(ngay_lam_hop_dong) BETWEEN 1 AND 6)
+            AND YEAR(ngay_lam_hop_dong) = 2021) AS table2 ON table1.ten_dich_vu = table2.ten_dich_vu
+WHERE
+    table2.ten_dich_vu IS NULL;
+	
+  
   
 
  
