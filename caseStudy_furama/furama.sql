@@ -171,7 +171,7 @@ SELECT * FROM khach_hang;
 
 INSERT INTO dich_vu (ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, so_nguoi_toi_da, ma_kieu_thue, ma_loai_dich_vu, tieu_chuan_phong, mo_ta_tien_nghi_khac, dien_tich_ho_boi, so_tang, dich_vu_mien_phi_di_kem) 
 VALUES 
-('1', 'Villa Beach Front', '25000', 1000000, '10', '3', '1', 'vip', 'Có hồ bơi', '500', '4', NULL),
+('1', 'Villa Beach Front', '25000', 10000000, '10', '3', '1', 'vip', 'Có hồ bơi', '500', '4', NULL),
 ('2', 'House Princess 01', '14000', 5000000, '7', '2', '2', 'vip', 'Có thêm bếp nướng', NULL, '3', NULL),
 ('3', 'Room Twin 01', '5000', 1000000, '2', '4', '3', 'normal', 'Có tivi', NULL, NULL, '1 Xe máy, 1 Xe đạp'),
 ('4', 'Villa No Beach Front', '22000', 9000000, '8', '3', '1', 'normal', 'Có hồ bơi', '300', '3', NULL),
@@ -339,20 +339,17 @@ WHERE
   --   8.	Hiển thị thông tin ho_ten khách hàng có trong hệ thống, với yêu cầu ho_ten không trùng nhau.
   
   SELECT 
-    table1.ho_ten
-FROM
-    (SELECT 
-        ho_ten, COUNT(*)
+        ho_ten
     FROM
         khach_hang
     GROUP BY ho_ten
-    HAVING COUNT(*) > 1) AS table1;
+    HAVING COUNT(*) > 1 ;
   
    SELECT DISTINCT
     ho_ten
 FROM
-    khach_hang;
-  
+    khach_hang
+ HAVING COUNT(*) > 1 ; 
 --   9.	Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng trong năm 2021 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng.
 
 SELECT 
@@ -395,7 +392,7 @@ FROM
         JOIN
     dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
 WHERE
-    loai_khach.ma_loai_khach = 1
+    loai_khach.ten_loai_khach ='Diamond'
         AND (dia_chi LIKE '%Vinh'
         OR dia_chi LIKE '%Quảng Ngãi');
         
@@ -444,11 +441,113 @@ FROM
 WHERE
     table2.ten_dich_vu IS NULL;
 	
-  
-  
+   --  13.	Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
+
+SELECT 
+    hop_dong_chi_tiet.ma_dich_vu_di_kem,
+    ten_dich_vu_di_kem,
+    SUM(so_luong) AS so_luong_dich_vu_di_kem
+FROM
+    hop_dong_chi_tiet
+        JOIN
+    dich_vu_di_kem ON hop_dong_chi_tiet.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+GROUP BY ma_dich_vu_di_kem
+HAVING so_luong_dich_vu_di_kem = (SELECT 
+        MAX(table1.tong)
+    FROM
+        (SELECT 
+            SUM(so_luong) AS tong
+        FROM
+            hop_dong_chi_tiet
+        GROUP BY ma_dich_vu_di_kem) AS table1);
+       
+        
+-- 14.	Hiển thị thông tin tất cả các Dịch vụ đi kèm chỉ mới được sử dụng một lần duy nhất. Thông tin hiển thị bao gồm ma_hop_dong, ten_loai_dich_vu, ten_dich_vu_di_kem, so_lan_su_dung (được tính dựa trên việc count các ma_dich_vu_di_kem).
+ SELECT 
+    hop_dong.ma_hop_dong,
+    loai_dich_vu.ten_loai_dich_vu,
+    dich_vu_di_kem.ten_dich_vu_di_kem,
+    table1.so_lan_su_dung
+FROM
+    loai_dich_vu
+        JOIN
+    dich_vu ON dich_vu.ma_loai_dich_vu = loai_dich_vu.ma_loai_dich_vu
+        JOIN
+    hop_dong ON dich_vu.ma_dich_vu = hop_dong.ma_dich_vu
+        JOIN
+    hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+        JOIN
+    dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
+        JOIN
+    (SELECT 
+        ma_dich_vu_di_kem,
+            COUNT(ma_dich_vu_di_kem) AS so_lan_su_dung
+    FROM
+        hop_dong_chi_tiet
+    GROUP BY ma_dich_vu_di_kem) AS table1 ON table1.ma_dich_vu_di_kem = dich_vu_di_kem.ma_dich_vu_di_kem
+WHERE
+    so_lan_su_dung = 1
+ORDER BY ma_hop_dong;
+
+-- 15.	Hiển thi thông tin của tất cả nhân viên bao gồm ma_nhan_vien, ho_ten, ten_trinh_do, ten_bo_phan, so_dien_thoai, dia_chi mới chỉ lập được tối đa 3 hợp đồng từ năm 2020 đến 2021.
+SELECT 
+    nhan_vien.ma_nhan_vien,
+    ho_ten,
+    ten_trinh_do,
+    ten_bo_phan,
+    so_dien_thoai,
+    dia_chi
+FROM
+    nhan_vien
+        JOIN
+    trinh_do ON trinh_do.ma_trinh_do = nhan_vien.ma_trinh_do
+        JOIN
+    bo_phan ON bo_phan.ma_bo_phan = nhan_vien.ma_bo_phan
+        JOIN
+    hop_dong ON nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
+        RIGHT JOIN
+    (SELECT 
+        ma_nhan_vien, COUNT(ma_nhan_vien) AS so_lan
+    FROM
+        hop_dong
+    GROUP BY ma_nhan_vien
+    HAVING so_lan <= 3) AS table1 ON nhan_vien.ma_nhan_vien = table1.ma_nhan_vien;
+    
+--     16.	Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019 đến năm 2021.
+set sql_safe_updates = 0;
+DELETE FROM nhan_vien 
+WHERE
+    ma_nhan_vien NOT IN (SELECT 
+        temp.ma_nhan_vien
+    FROM
+        (SELECT 
+            nhan_vien.ma_nhan_vien
+        FROM
+            hop_dong
+        LEFT JOIN nhan_vien ON nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
+        
+        WHERE
+            YEAR(ngay_lam_hop_dong) IN (2020 , 2021)
+        GROUP BY ma_nhan_vien) temp);
+    set sql_safe_updates =1;
+SELECT 
+    *
+FROM
+    nhan_vien;
+ 
+--  17.	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ.
+
+
+-- 18.	Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng).-- 
+ set sql_safe_updates = 0;
+ set foreign_key_checks =0;
+ 
+ 
+ 
+  set foreign_key_checks =1;
+  set sql_safe_updates = 1;
 
  
-
-  
+ 
 
    
