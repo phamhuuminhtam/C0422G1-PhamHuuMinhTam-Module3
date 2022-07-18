@@ -375,9 +375,7 @@ FROM
     hop_dong_chi_tiet ON hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
         LEFT JOIN
     dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
-GROUP BY ma_hop_dong;
-
--- 11.	Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
+GROUP BY ma_hop_dong 11.	Hiển thị thông tin các dịch vụ đi kèm đã được sử dụng bởi những khách hàng có ten_loai_khach là “Diamond” và có dia_chi ở “Vinh” hoặc “Quảng Ngãi”.
 SELECT 
     dich_vu_di_kem.ma_dich_vu_di_kem,
     dich_vu_di_kem.ten_dich_vu_di_kem
@@ -536,18 +534,88 @@ FROM
     nhan_vien;
  
 --  17.	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ.
-
-
+UPDATE khach_hang 
+SET 
+    ma_loai_khach = 1
+WHERE
+    ma_khach_hang = (SELECT 
+            table1.ma_khach_hang
+        FROM
+            (SELECT 
+                ten_loai_khach,
+                    khach_hang.ma_khach_hang,
+                    CASE
+                        WHEN hop_dong_chi_tiet.so_luong IS NULL THEN SUM(dich_vu.chi_phi_thue)
+                        ELSE SUM(dich_vu.chi_phi_thue + hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia)
+                    END AS tong_tien
+            FROM
+                loai_khach
+            LEFT JOIN khach_hang ON loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+            LEFT JOIN hop_dong ON hop_dong.ma_khach_hang = khach_hang.ma_khach_hang
+            LEFT JOIN dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+            LEFT JOIN hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+            LEFT JOIN dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
+            GROUP BY CASE
+                WHEN hop_dong.ma_hop_dong IS NULL THEN ho_ten
+                ELSE hop_dong.ma_hop_dong
+            END) AS table1
+        WHERE
+            table1.tong_tien > 10000000
+                AND table1.ten_loai_khach = 'platinium');
 -- 18.	Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng).-- 
  set sql_safe_updates = 0;
  set foreign_key_checks =0;
- 
- 
- 
+DELETE FROM khach_hang 
+WHERE
+    ma_khach_hang IN (SELECT 
+        ma_khach_hang
+    FROM
+        hop_dong
+    
+    WHERE
+        YEAR(ngay_lam_hop_dong) < 2021);
   set foreign_key_checks =1;
   set sql_safe_updates = 1;
+SELECT 
+    *
+FROM
+    khach_hang;
+    
+    
+--  19.	Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi.
+ set sql_safe_updates = 0;
+UPDATE dich_vu_di_kem 
+SET 
+    gia = gia * 2
+WHERE
+    ma_dich_vu_di_kem IN (SELECT 
+            ma_dich_vu_di_kem
+        FROM
+            hop_dong_chi_tiet
+                JOIN
+            hop_dong ON hop_dong.ma_hop_dong = hop_dong_chi_tiet.ma_hop_dong
+        WHERE
+            YEAR(ngay_lam_hop_dong) = 2020
+        GROUP BY ma_dich_vu_di_kem
+        HAVING SUM(so_luong) > 10);
+   set sql_safe_updates =1;
 
- 
- 
-
-   
+-- 20.	Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi.
+SELECT 
+    ma_nhan_vien AS ID,
+    ho_ten,
+    email,
+    so_dien_thoai,
+    ngay_sinh,
+    dia_chi
+FROM
+    nhan_vien 
+UNION SELECT 
+    ma_khach_hang,
+    ho_ten,
+    email,
+    so_dien_thoai,
+    ngay_sinh,
+    dia_chi
+FROM
+    khach_hang;
