@@ -527,8 +527,8 @@ WHERE
         LEFT JOIN nhan_vien ON nhan_vien.ma_nhan_vien = hop_dong.ma_nhan_vien
         
         WHERE
-            YEAR(ngay_lam_hop_dong) IN (2020 , 2021)
-        GROUP BY ma_nhan_vien) temp);
+            YEAR(ngay_lam_hop_dong) IN (2019,2020,2021)
+        GROUP BY ma_nhan_vien)  as temp);
     set sql_safe_updates =1;
 SELECT 
     *
