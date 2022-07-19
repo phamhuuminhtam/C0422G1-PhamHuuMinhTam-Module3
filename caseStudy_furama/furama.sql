@@ -336,6 +336,8 @@ FROM
 WHERE
     table2.ten_dich_vu IS NULL;
     
+    
+    
   --   8.	Hiển thị thông tin ho_ten khách hàng có trong hệ thống, với yêu cầu ho_ten không trùng nhau.
   
   SELECT 
@@ -350,6 +352,17 @@ WHERE
 FROM
     khach_hang
  HAVING COUNT(*) > 1 ; 
+ 
+ SELECT 
+        ho_ten
+    FROM
+        khach_hang
+        union 
+        SELECT 
+        ho_ten
+    FROM
+        khach_hang;
+ 
 --   9.	Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng trong năm 2021 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng.
 
 SELECT 
@@ -440,6 +453,45 @@ FROM
             AND YEAR(ngay_lam_hop_dong) = 2021) AS table2 ON table1.ten_dich_vu = table2.ten_dich_vu
 WHERE
     table2.ten_dich_vu IS NULL;
+  --   --cách 2--
+    SELECT 
+    hop_dong.ma_hop_dong,
+    nhan_vien.ho_ten,
+    khach_hang.ho_ten,
+    khach_hang.so_dien_thoai,
+    dich_vu.ma_dich_vu,
+    dich_vu.ten_dich_vu,
+    SUM(hop_dong_chi_tiet.so_luong) AS so_luong_dich_vu_di_kem,
+    hop_dong.tien_dat_coc
+FROM
+    loai_khach
+        LEFT JOIN
+    khach_hang ON loai_khach.ma_loai_khach = khach_hang.ma_loai_khach
+        LEFT JOIN
+    hop_dong ON khach_hang.ma_khach_hang = hop_dong.ma_khach_hang
+        LEFT JOIN
+    hop_dong_chi_tiet ON hop_dong_chi_tiet.ma_hop_dong = hop_dong.ma_hop_dong
+        LEFT JOIN
+    dich_vu_di_kem ON dich_vu_di_kem.ma_dich_vu_di_kem = hop_dong_chi_tiet.ma_dich_vu_di_kem
+        LEFT JOIN
+    nhan_vien ON hop_dong.ma_nhan_vien = nhan_vien.ma_nhan_vien
+        LEFT JOIN
+    dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+WHERE
+    MONTH(ngay_lam_hop_dong) IN (10 , 11, 12)
+        AND YEAR(ngay_lam_hop_dong) = 2020
+        AND dich_vu.ten_dich_vu NOT IN 
+        (SELECT 
+            dich_vu.ten_dich_vu
+        FROM
+            hop_dong
+                LEFT JOIN
+            dich_vu ON hop_dong.ma_dich_vu = dich_vu.ma_dich_vu
+        WHERE
+            (MONTH(ngay_lam_hop_dong) BETWEEN 1 AND 6)
+                AND YEAR(ngay_lam_hop_dong) = 2021)
+GROUP BY khach_hang.ho_ten;
+       
 	
    --  13.	Hiển thị thông tin các Dịch vụ đi kèm được sử dụng nhiều nhất bởi các Khách hàng đã đặt phòng. (Lưu ý là có thể có nhiều dịch vụ có số lần sử dụng nhiều như nhau).
 
