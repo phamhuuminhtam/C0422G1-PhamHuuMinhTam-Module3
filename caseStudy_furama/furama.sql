@@ -728,20 +728,19 @@ delimiter $$
 -- Lưu ý: Đối với MySQL thì sử dụng SIGNAL hoặc ghi log thay cho việc ghi ở console.
 
 delimiter $$
-  create Procedure tr_xoa_hop_dong(in  ma_hop_dong_in int)
+  create trigger tr_xoa_hop_dong
+  after delete on hop_dong
+  for each row
   begin
   declare dem int;
   declare str varchar(50);
-  if ma_hop_dong_in not in (select ma_hop_dong from hop_dong) 
-  then signal sqlstate '45000' set message_text = 'hợp đồng không tồn tại';
-  else 
-    delete from hop_dong where ma_hop_dong = ma_hop_dong_in;
-    select count(*) into dem from hop_dong; 
+      select count(*) into dem from hop_dong; 
    set str = concat('số lượng hợp đồng sau khi xóa là : ',cast(dem as char));
     signal sqlstate '45000' set message_text = str;
-end if;
    end $$
   delimiter ;
-  call tr_xoa_hop_dong(13);
+
+delete from hop_dong where ma_hop_dong=14;
+
 
 
