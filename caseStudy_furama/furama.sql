@@ -562,6 +562,8 @@ FROM
         ma_nhan_vien, COUNT(ma_nhan_vien) AS so_lan
     FROM
         hop_dong
+    WHERE
+        YEAR(ngay_lam_hop_dong) IN (2020 , 2021)
     GROUP BY ma_nhan_vien
     HAVING so_lan <= 3) AS table1 ON nhan_vien.ma_nhan_vien = table1.ma_nhan_vien;
     
@@ -673,3 +675,73 @@ UNION ALL SELECT
     dia_chi
 FROM
     khach_hang;
+    -- 21.	Tạo khung nhìn có tên là v_nhan_vien để lấy được thông tin của tất cả các nhân viên có địa chỉ là “Hải Châu” và đã từng lập hợp đồng cho một hoặc nhiều khách hàng bất kì với ngày lập hợp đồng là “12/12/2019”.
+    CREATE VIEW v_nhan_vien_1 AS
+    SELECT * FROM
+    NHAN_VIEN
+    WHERE NHAN_VIEN.DIA_CHI  like '%Nguyễn Chí Thanh%';
+    CREATE VIEW v_nhan_vien_2 AS
+    SELECT * FROM
+    hop_dong
+    WHERE ngay_lam_hop_dong ='2021-09-02';
+    
+    create view v_nhan_vien as
+    select v_nhan_vien_2.ma_nhan_vien, dia_chi from v_nhan_vien_1 join v_nhan_vien_2 on v_nhan_vien_2.ma_nhan_vien = v_nhan_vien_1.ma_nhan_vien;
+    select * from v_nhan_vien;
+    
+   --  22.	Thông qua khung nhìn v_nhan_vien thực hiện cập nhật địa chỉ thành “Liên Chiểu” đối với tất cả các nhân viên được nhìn thấy bởi khung nhìn này.
+   set sql_safe_updates =0;
+	   UPDATE v_nhan_vien 
+SET 
+    dia_chi = replace(dia_chi,'Nguyễn Chí Thanh','Liên Chiểu');
+     set sql_safe_updates =1
+     
+  --    23.	Tạo Stored Procedure sp_xoa_khach_hang dùng để xóa thông tin của một khách hàng nào đó với ma_khach_hang được truyền vào như là 1 tham số của sp_xoa_khach_hang.
+  delimiter $$
+  create Procedure sp_xoa_khach_hang(in ma_khach_hang_in int)
+  begin
+  set sql_safe_updates =0;
+  set foreign_key_checks = 0;
+  delete from khach_hang where ma_khach_hang = ma_khach_hang_in;
+  set foreign_key_checks = 1;
+  set sql_safe_updates =1;
+  end $$
+  delimiter ;
+  
+call sp_xoa_khach_hang(5);
+
+-- 24.	Tạo Stored Procedure sp_them_moi_hop_dong dùng để thêm mới vào bảng hop_dong với yêu cầu sp_them_moi_hop_dong phải thực hiện kiểm tra tính hợp lệ của dữ liệu bổ sung, với nguyên tắc không được trùng khóa chính và đảm bảo toàn vẹn tham chiếu đến các bảng liên quan.
+delimiter $$
+  create Procedure sp_them_moi_hop_dong(in ngay_lam_hop_dong_in date, ngay_ket_thuc_in date , tien_dat_coc_in double, ma_nhan_vien_in int , ma_khach_hang_in int , ma_dich_vu_in int)
+  begin
+  if (ma_nhan_vien_in not in (select ma_nhan_vien from nhan_vien) or ma_khach_hang_in not in (select ma_khach_hang from khach_hang) or ma_dich_vu_in not in (select ma_dich_vu from dich_vu)) 
+  then signal sqlstate '45000' set message_text = 'mã nhân viên/mã khách hàng/mã dịch vụ chưa tồn tại, vui lòng nhập lại';
+  else
+    insert into hop_dong(ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, ma_nhan_vien, ma_khach_hang, ma_dich_vu)
+    value (ngay_lam_hop_dong_in, ngay_ket_thuc_in , tien_dat_coc_in, ma_nhan_vien_in, ma_khach_hang_in  , ma_dich_vu_in ) ;
+    end if;
+   end $$
+  delimiter ;
+  call sp_them_moi_hop_dong('2021-06-07','2021-07-07', 1000000,3,9,3);
+  
+--   25.	Tạo Trigger có tên tr_xoa_hop_dong khi xóa bản ghi trong bảng hop_dong thì hiển thị tổng số lượng bản ghi còn lại có trong bảng hop_dong ra giao diện console của database.
+-- Lưu ý: Đối với MySQL thì sử dụng SIGNAL hoặc ghi log thay cho việc ghi ở console.
+
+delimiter $$
+  create Procedure tr_xoa_hop_dong(in  ma_hop_dong_in int)
+  begin
+  declare dem int;
+  declare str varchar(50);
+  if ma_hop_dong_in not in (select ma_hop_dong from hop_dong) 
+  then signal sqlstate '45000' set message_text = 'hợp đồng không tồn tại';
+  else 
+    delete from hop_dong where ma_hop_dong = ma_hop_dong_in;
+    select count(*) into dem from hop_dong; 
+   set str = concat('số lượng hợp đồng sau khi xóa là : ',cast(dem as char));
+    signal sqlstate '45000' set message_text = str;
+end if;
+   end $$
+  delimiter ;
+  call tr_xoa_hop_dong(13);
+
+
