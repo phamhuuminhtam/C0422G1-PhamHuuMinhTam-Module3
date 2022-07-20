@@ -171,7 +171,7 @@ SELECT * FROM khach_hang;
 
 INSERT INTO dich_vu (ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, so_nguoi_toi_da, ma_kieu_thue, ma_loai_dich_vu, tieu_chuan_phong, mo_ta_tien_nghi_khac, dien_tich_ho_boi, so_tang, dich_vu_mien_phi_di_kem) 
 VALUES 
-('1', 'Villa Beach Front', '25000', 10000000, '10', '3', '1', 'vip', 'Có hồ bơi', '500', '4', NULL),
+('1', 'Villa Beach Front', '25000', 1000000, '10', '3', '1', 'vip', 'Có hồ bơi', '500', '4', NULL),
 ('2', 'House Princess 01', '14000', 5000000, '7', '2', '2', 'vip', 'Có thêm bếp nướng', NULL, '3', NULL),
 ('3', 'Room Twin 01', '5000', 1000000, '2', '4', '3', 'normal', 'Có tivi', NULL, NULL, '1 Xe máy, 1 Xe đạp'),
 ('4', 'Villa No Beach Front', '22000', 9000000, '8', '3', '1', 'normal', 'Có hồ bơi', '300', '3', NULL),
@@ -247,8 +247,8 @@ SELECT
     hop_dong.ngay_lam_hop_dong,
     hop_dong.ngay_ket_thuc,
     CASE
-        WHEN hop_dong_chi_tiet.so_luong IS NULL THEN SUM(dich_vu.chi_phi_thue)
-        ELSE SUM(dich_vu.chi_phi_thue + hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia)
+        WHEN hop_dong_chi_tiet.so_luong IS NULL THEN dich_vu.chi_phi_thue
+        ELSE dich_vu.chi_phi_thue + sum(hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia)
     END AS tong_tien
 FROM
     loai_khach
@@ -600,7 +600,7 @@ WHERE
                     khach_hang.ma_khach_hang,
                     CASE
                         WHEN hop_dong_chi_tiet.so_luong IS NULL THEN SUM(dich_vu.chi_phi_thue)
-                        ELSE SUM(dich_vu.chi_phi_thue + hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia)
+                        ELSE dich_vu.chi_phi_thue +SUM( hop_dong_chi_tiet.so_luong * dich_vu_di_kem.gia)
                     END AS tong_tien
             FROM
                 loai_khach
