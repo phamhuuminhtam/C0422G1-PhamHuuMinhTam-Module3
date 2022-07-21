@@ -1,18 +1,18 @@
-drop database if exists demo_view_index_sp;
-create database demo_view_index_sp;
-use demo_view_index_sp;
+DROP DATABASE IF exists demo_view_index_sp;
+CREATE DATABASE demo_view_index_sp;
+USE demo_view_index_sp;
 
 CREATE TABLE product (
-    Id INT PRIMARY KEY AUTO_INCREMENT,
-    product_code VARCHAR(20),
-    product_name VARCHAR(20),
-    product_price DOUBLE,
-    product_amount INT,
-    product_description VARCHAR(60),
-    product_status BIT(2)
+Id INT PRIMARY KEY AUTO_INCREMENT,
+product_code VARCHAR(20),
+product_name VARCHAR(20),
+product_price DOUBLE,
+product_amount INT,
+product_description VARCHAR(60),
+product_status BIT(2)
 );
 
-insert into product(product_code,product_name,product_price,product_amount,product_description,product_status) values (1,'product1',20000,20,'khong có mô tả',1),
+INSERT INTO product(product_code,product_name,product_price,product_amount,product_description,product_status) VALUES (1,'product1',20000,20,'khong có mô tả',1),
 (2,'product1',20000,210,'khong có mô tả',0),
 (3,'product2',30000,220,'khong có mô tả',0),
 (4,'product3',40000,230,'có mô tả',0),
@@ -33,13 +33,13 @@ insert into product(product_code,product_name,product_price,product_amount,produ
 -- Sử dụng câu lệnh EXPLAIN để biết được câu lệnh SQL của bạn thực thi như nào
 -- So sánh câu truy vấn trước và sau khi tạo index
 
-create index i_product_code on product(product_code);
-create index i_product_name_price on product(product_name,product_price);
-drop index i_product_code on product;
-drop index i_product_name_price on product;
+CREATE index i_product_code ON product(product_code);
+CREATE index i_product_name_price ON product(product_name,product_price);
+DROP index i_product_code ON product;
+DROP index i_product_name_price ON product;
 
-explain select  product_code from product where product_code ='14';
-explain select  product_name from product where product_name ="product11";
+explain SELECT product_code FROM product WHERE product_code ='14';
+explain SELECT product_name FROM product WHERE product_name ="product11";
 
 
 -- Tạo view lấy về các thông tin: productCode, productName, productPrice, productStatus từ bảng products.
@@ -47,71 +47,71 @@ explain select  product_name from product where product_name ="product11";
 -- Tiến hành xoá view
 
 CREATE VIEW product_sub_view AS
-    SELECT 
-        product_Code, product_Name, product_Price, product_Status
-    FROM
-        product;
-
-SELECT 
-    *
+SELECT
+product_Code, product_Name, product_Price, product_Status
 FROM
-    product_sub_view;
+product;
 
-set sql_safe_updates=0;
-UPDATE product_sub_view 
-SET 
-    product_name = 'productVIP'
+SELECT
+*
+FROM
+product_sub_view;
+
+SET sql_safe_updates=0;
+UPDATE product_sub_view
+SET
+product_name = 'productVIP'
 WHERE
-    product_status = 1;
-set sql_safe_updates=1;
+product_status = 1;
+SET sql_safe_updates=1;
 
-SELECT 
-    *
+SELECT
+*
 FROM
-    product;
+product;
 
-insert into product_sub_view(product_Code, product_Name, product_Price, product_Status) values (20,"productcheap",1000,0);
+INSERT INTO product_sub_view(product_Code, product_Name, product_Price, product_Status) VALUES (20,"productcheap",1000,0);
 
-drop view product_sub_view;
+DROP view product_sub_view;
 
--- Tạo store procedure lấy tất cả thông tin của tất cả các sản phẩm trong bảng product
--- Tạo store procedure thêm một sản phẩm mới
--- Tạo store procedure sửa thông tin sản phẩm theo id
--- Tạo store procedure xoá sản phẩm theo id
+-- Tạo store PROCEDURE lấy tất cả thông tin của tất cả các sản phẩm trong bảng product
+-- Tạo store PROCEDURE thêm một sản phẩm mới
+-- Tạo store PROCEDURE sửa thông tin sản phẩm theo id
+-- Tạo store PROCEDURE xoá sản phẩm theo id
 delimiter $$
-create procedure get_info_product()
-begin
-select * from product;
-end $$
+CREATE PROCEDURE get_info_product()
+BEGIN
+SELECT * FROM product;
+END $$
 delimiter ;
 
 delimiter $$
-create procedure insert_info_product(IN p_code varchar(20),p_name  varchar(20),p_price double,p_amount int ,p_description  varchar(60),p_status bit(2))
-begin
-insert into product(product_code,product_name,product_price,product_amount,product_description,product_status) value (p_code,p_name,p_price,p_amount,p_description,p_status);
-end $$
+CREATE PROCEDURE insert_info_product(IN p_code varchar(20),p_name varchar(20),p_price double,p_amount int ,p_description varchar(60),p_status bit(2))
+BEGIN
+INSERT INTO product(product_code,product_name,product_price,product_amount,product_description,product_status) value (p_code,p_name,p_price,p_amount,p_description,p_status);
+END $$
 delimiter ;
 
 delimiter $$
-create procedure update_info_product_by_id(IN p_id int, p_code varchar(20),p_name  varchar(20),p_price double,p_amount int ,p_description  varchar(60),p_status bit(2))
-begin
-update  product set product_code = p_code, product_name=p_name, product_price=p_price, product_amount=p_amount,product_description=p_description, product_status=p_status where Id =p_id;
-end $$
+CREATE PROCEDURE update_info_product_by_id(IN p_id int, p_code varchar(20),p_name varchar(20),p_price double,p_amount int ,p_description varchar(60),p_status bit(2))
+BEGIN
+UPDATE product SET product_code = p_code, product_name=p_name, product_price=p_price, product_amount=p_amount,product_description=p_description, product_status=p_status WHERE Id =p_id;
+END $$
 delimiter ;
 
 delimiter $$
-create procedure delete_product_by_id(IN p_id int)
-begin
-delete from  product where Id =p_id;
-end $$
+CREATE PROCEDURE delete_product_by_id(IN p_id int)
+BEGIN
+DELETE FROM product WHERE Id =p_id;
+END $$
 delimiter ;
 
-SELECT 
-    *
+SELECT
+*
 FROM
-    product;
-    
-call get_info_product();
-call insert_info_product(100,'productIns',990000,100,'có mô tả',1);
-call update_info_product_by_id(17,15,'productChange',90000,200,'không có mô tả',0);
-call delete_product_by_id(10);
+product;
+
+CALL get_info_product();
+CALL insert_info_product(100,'productIns',990000,100,'có mô tả',1);
+CALL update_info_product_by_id(17,15,'productChange',90000,200,'không có mô tả',0);
+CALL delete_product_by_id(10);

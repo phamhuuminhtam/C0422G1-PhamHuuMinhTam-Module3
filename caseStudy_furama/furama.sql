@@ -727,20 +727,33 @@ delimiter $$
 --   25.	Tạo Trigger có tên tr_xoa_hop_dong khi xóa bản ghi trong bảng hop_dong thì hiển thị tổng số lượng bản ghi còn lại có trong bảng hop_dong ra giao diện console của database.
 -- Lưu ý: Đối với MySQL thì sử dụng SIGNAL hoặc ghi log thay cho việc ghi ở console.
 
+create view cout as
+select count(*)  from hop_dong;
+
+drop trigger if exists tr_xoa_hop_dong;
+
 delimiter $$
   create trigger tr_xoa_hop_dong
-  after delete on hop_dong
+  after delete 
+  on hop_dong
   for each row
   begin
-  declare dem int;
-  declare str varchar(50);
-      select count(*) into dem from hop_dong; 
-   set str = concat('số lượng hợp đồng sau khi xóa là : ',cast(dem as char));
-    signal sqlstate '45000' set message_text = str;
+  declare dem int default 0;
+  declare str varchar(100);
+  set dem = (select *  from cout);
+  set str = concat('số lượng hợp đồng sau khi xóa là : ',cast(dem as char));
+ signal sqlstate '45000' set message_text = str;
    end $$
   delimiter ;
+  
+  
+set sql_safe_updates =0;
+set foreign_key_checks =0;
+delete from hop_dong where ma_hop_dong='12';
+set foreign_key_checks =1;
+set sql_safe_updates =1;
 
-delete from hop_dong where ma_hop_dong=14;
+
 
 
 
