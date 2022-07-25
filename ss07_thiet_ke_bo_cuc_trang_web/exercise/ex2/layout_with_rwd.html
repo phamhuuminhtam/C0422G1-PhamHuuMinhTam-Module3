@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo layout với RWD</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/d6e19ea644.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .header{
+
+            background-color: #222222;
+            color: #9d9d9d;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+        .menu:hover{
+            background-color: black;
+            color: white;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+        }
+        .leftmain{
+            background-color: #f1f1f1;
+            text-align: center;
+            height: 800px;
+        }
+        .leftmain ul li {
+            list-style: none;
+        }
+
+        .welcome{
+            font-size: 13pt;
+
+        }
+        h1 {
+            margin-top: 30px;
+            margin-bottom: 30px;
+            text-indent: 20px;
+        }
+        ul {
+            margin-top: 20px;
+        }
+        p{text-indent: 30px;
+            text-align: justify
+        }
+       .Ads div {
+            height: 100px;
+            width: 250px;
+            background-color: grey;
+            border: solid 1px black;
+           margin: 30px;
+           text-align: center;
+           line-height: 100px;
+
+        }
+        .footer{
+            position: relative;
+            background-color: #222222;
+            color: #9d9d9d;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+          
+        }
+    </style>
+</head>
+<body>
+<div class="header row">
+    <div class="col-m-1 menu col-s-1">LOGO</div>
+    <div class="col-m-1 menu col-s-1">HOME</div>
+    <div class="col-m-1 menu col-s-1">ABOUT</div>
+    <div class="col-m-1 menu col-s-1">PROJECT</div>
+    <div class="col-m-1 menu col-s-1">CONTACT</div>
+    <div class="col-m-6 menu col-s-5"></div>
+    <div class="col-m-1 menu col-s-2"><i class="fa-solid fa-right-to-bracket"></i> LOGIN</div>
+</div>
+<div class="body row">
+    <div class="leftmain col-m-2 col-s-2">
+        <ul>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+            <li><a href="#">Link</a></li>
+        </ul>
+    </div>
+    <div class="content col-m-8 col-s-10">
+        <div class="welcome col-m-12 col-s-12">
+        <h1>WELCOME</h1>
+            <p >Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                anim id est laborum.</p>
+        </div>
+        <hr>
+        <div class="test col-m-12  col-s-12">
+        <h1>TEST</h1>
+            <p>Lorem ipsum....</p>
+        </div>
+    </div>
+    <div class="rightmain col-m-2 col-s-12 row">
+        <div class="Ads col-m-12 col-s-6" > <div>ADS</div> </div>
+        <div class="Ads col-m-12 col-s-6" > <div>ADS</div></div>
+    </div>
+</div>
+<div class="footer col-m-12 col-s-12"> footer Text</div>
+</body>
+</html>

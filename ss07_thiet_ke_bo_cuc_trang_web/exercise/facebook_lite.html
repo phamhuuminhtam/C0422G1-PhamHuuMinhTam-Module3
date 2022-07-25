@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tạo giao diện giản lược của trang chủ Facebook</title>
+    <script src="https://kit.fontawesome.com/d6e19ea644.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            }
+        .header {
+            position: fixed;
+            top: 0;
+            height: 70px;
+            background-color: white;
+            border-bottom-color: lightgrey ;
+        }
+        .leftmain{
+
+            background-color: blue;
+            float: left;
+            height: 1000px;
+        }
+        .main{
+
+            background-color: yellow;
+            float: left;
+            height: 1000px;
+        }
+        .rightmain{
+
+            background-color: red;
+            float: left;
+            height: 1000px;
+        }
+        .logofb {
+        padding-left: 40px;
+            padding-top: 10px;
+        }
+
+        #search{
+            background-color: ghostwhite;
+            border: solid 0.5px lightgrey ;
+            width: 250px;
+            height: 35px;
+            border-radius: 30px;
+            margin-left: 20px;
+            position: relative;
+            top: 10px;
+            padding-left: 15px;
+            font-size: 13pt;
+            line-height: 30px;
+        }
+
+        ul li:hover {
+        background-color: ghostwhite;
+        }
+
+        ul li{
+            font-size: 30px;
+            height: 60px;
+            width: 90px;
+            list-style: none;
+            float: left;
+            border-radius: 10px;
+            margin: 5px;
+            text-align: center;
+            color: grey;
+        }
+        li i {
+            padding-top: 15px;
+        }
+       .righmenu ul li{
+           position: relative;
+            font-size: 25px;
+            height: 55px;
+            width: 55px;
+            list-style: none;
+            float: right;
+            border-radius: 100px;
+            text-align: center;
+            color: grey;
+            background-color: lavender;
+        }
+        .righmenu ul li:hover{
+            background-color: #e9d8f4;
+        }
+        .leftmain{
+            background-color: ghostwhite;
+        }
+        .leftmain ul li {
+            width: 90%;
+            height: 50px;
+            border-radius: 20px;
+            position: relative;
+            top: 70px;
+            color: black;
+            clear: both;
+        }
+
+    </style>
+    <link rel="stylesheet" href="css1.css">
+</head>
+<body>
+<div class="header row col-m-12">
+    <div class="col-m-4">
+        <div class="logofb"><i class="fa-brands fa-facebook" style="font-size: 50px; color: #139cf7; float: left"></i></div>
+        <div ><input id="search" type="text" placeholder="Tìm kiếm trên Facebook"></div>
+    </div>
+    <div class="col-m-4 menu">
+        <ul>
+            <li><div><i class="fa-solid fa-house"></i></div></li>
+            <li><div><i class="fa-solid fa-tv"></i></div></li>
+            <li><div><i class="fa-solid fa-store"></i></div></li>
+            <li><div><i class="fa-solid fa-users-line"></i></div></li>
+            <li><div><i class="fa-solid fa-chess-board"></i></div></li>
+        </ul>
+    </div>
+    <div class="col-m-4 righmenu">
+        <ul>
+            <li><div><i class="fa-solid fa-bell"></i></div></li>
+            <li><div><i class="fa-brands fa-facebook-messenger"></i></div></li>
+            <li><div><i class="fa-solid fa-bars"></i></div></li>
+
+        </ul>
+    </div>
+</div>
+<div class="body">
+<div class="leftmain col-m-2">left
+    <ul>
+        <li><div>hello</div></li>
+        <li><div>kitty</div></li>
+        <li><div>hihi</div></li>
+
+    </ul>
+</div>
+<div class="main col-m-7" >main</div>
+<div class="rightmain col-m-3">right</div>
+</div>
+</body>
+</html>
