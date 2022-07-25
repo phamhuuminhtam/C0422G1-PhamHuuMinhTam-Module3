@@ -9,6 +9,7 @@
             margin: 0;
             padding: 0;
             }
+
         .header {
             position: fixed;
             top: 0;
@@ -16,22 +17,25 @@
             background-color: white;
             border-bottom-color: lightgrey ;
             z-index: 1;
+            margin-bottom: 100px;
         }
         .leftmain{
-
-            background-color: blue;
+            height: 1000px;
+            background-color: ghostwhite;
+            position: fixed;
             float: left;
-            height: 1500px;
+            left: 0;
         }
         .main{
-
-            background-color: yellow;
+            padding-top: 100px;
+            background-color: ghostwhite;
+            margin-left: auto;
             float: left;
             height: 1000px;
         }
         .rightmain{
-
-            background-color: red;
+            padding-top: 100px;
+            background-color: ghostwhite;
             float: left;
             height: 1000px;
         }
@@ -87,10 +91,7 @@
         .righmenu ul li:hover{
             background-color: #e9d8f4;
         }
-        .leftmain{
-            background-color: ghostwhite;
 
-        }
         .leftmain ul li {
             width: 90%;
             height: 40px;
@@ -100,6 +101,7 @@
             clear: both;
             text-align: left;
             padding-left: 60px;
+
         }
         .leftmain ul li:hover{
             width: 200px;
@@ -107,7 +109,28 @@
             border-radius: 7px;
             padding-left: 70px;
         }
+        .lt ul li {
+            position: relative;
+            padding-top: 10px;
+            top: 0;
+        }
+        .news div {
+            position: relative;
+            height: 250px;
+            margin-bottom: 50px;
 
+        }
+        .news div img {
+            border-radius: 15px;
+        }
+
+        .newsfeed {
+            background-color: ghostwhite;
+            border-radius: 17px;
+            margin: 10px;
+            padding: 5px;
+            text-align: justify;
+        }
     </style>
     <link rel="stylesheet" href="css1.css">
 </head>
@@ -135,7 +158,7 @@
         </ul>
     </div>
 </div>
-<div class="body">
+<div class="body row">
 <div class="leftmain col-m-2">left
     <div class="row"></div>
     <ul style="height: 400px">
@@ -147,7 +170,7 @@
         <li><div>Kỷ niệm</div></li>
     </ul>
     <div ><hr></div>
-    <div class="row col-m-12">
+    <div class="row lt">
         <h3 style="padding-left: 20px;padding-top: 10px;color: grey">Lối tắt của bạn</h3>
         <ul style="height: 400px">
             <li><div>lối thoát 1</div></li>
@@ -162,10 +185,43 @@
 
 
 </div>
-<div class="main col-m-7" >main
+<div class="main col-m-8" >
+    <div class="row news">
+        <div class="col-m-1"></div>
+        <div class="col-m-2"><img src="img/2.PNG" height="238" width="200"/></div>
+        <div class="col-m-2"><img src="img/1.PNG" height="235" width="200"/></div>
+        <div class="col-m-2"><img src="img/3.PNG" height="237" width="200"/></div>
+        <div class="col-m-2"><img src="img/4.PNG" height="236" width="200"/></div>
+        <div class="col-m-2"><img src="img/5.PNG" height="239" width="200"/></div>
+        <div class="col-m-1"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-m-1"></div>
+        <div class="col-m-10 newsfeed">
+            <div class="row ">
+                <div class="col-m-2  " style="text-align: right"><img src="img/6.PNG" height="47" width="47"  /></div>
+                <div class="col-m-10 " style="line-height: 52px">Đơn vị Tác Chiến Điện Tử Comrade Commissar</div>
+            </div>
+            <div class="row">
+                <p>Bộ trưởng Quốc phòng Ukraine tuyên bố nước này đã nhận 3 xe phòng không tự hành Gepard cùng hàng chục nghìn viên đ.ạ.n của Đức, dự kiến tiếp nhận tổng cộng 15 xe Gepard và hàng chục xe tăng chủ lực Leopard từ Đức.
+                    Vài giờ sau, Gazprom thông báo ngừng thêm một turbine nén khí của đường ống Nord Stream 1, khiến lưu lượng khí đốt sang Đức giảm một nửa so với mức 40% công suất đường ống hiện nay.
+                    Chắc khum liên quan đến nhau đâu 🐧 <br>
+                    - CBT -<br>
+                    #ComCom</p>
+            </div>
+            <div class="row"><img src="img/8.jpg" height="450" width="1200"/></div>
+        </div>
+
+        <div class="col-m-1"></div>
+    </div>
+
+    <div class="row">
+
+    </div>
 
 </div>
-<div class="rightmain col-m-3">right</div>
+<div class="rightmain col-m-2">right</div>
 </div>
 </body>
 </html>
