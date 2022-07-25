@@ -15,12 +15,13 @@
             height: 70px;
             background-color: white;
             border-bottom-color: lightgrey ;
+            z-index: 1;
         }
         .leftmain{
 
             background-color: blue;
             float: left;
-            height: 1000px;
+            height: 1500px;
         }
         .main{
 
@@ -88,15 +89,23 @@
         }
         .leftmain{
             background-color: ghostwhite;
+
         }
         .leftmain ul li {
             width: 90%;
-            height: 50px;
-            border-radius: 20px;
+            height: 40px;
             position: relative;
             top: 70px;
             color: black;
             clear: both;
+            text-align: left;
+            padding-left: 60px;
+        }
+        .leftmain ul li:hover{
+            width: 200px;
+            background-color: lightgrey;
+            border-radius: 7px;
+            padding-left: 70px;
         }
 
     </style>
@@ -128,14 +137,34 @@
 </div>
 <div class="body">
 <div class="leftmain col-m-2">left
-    <ul>
-        <li><div>hello</div></li>
-        <li><div>kitty</div></li>
-        <li><div>hihi</div></li>
-
+    <div class="row"></div>
+    <ul style="height: 400px">
+        <li><div>Phạm Tâm</div></li>
+        <li><div>Bạn bè</div></li>
+        <li><div>Nhóm</div></li>
+        <li><div>Marketplace</div></li>
+        <li><div>Watch</div></li>
+        <li><div>Kỷ niệm</div></li>
     </ul>
+    <div ><hr></div>
+    <div class="row col-m-12">
+        <h3 style="padding-left: 20px;padding-top: 10px;color: grey">Lối tắt của bạn</h3>
+        <ul style="height: 400px">
+            <li><div>lối thoát 1</div></li>
+            <li><div>lối thoát 1</div></li>
+            <li><div>lối thoát 1</div></li>
+            <li><div>lối thoát 1</div></li>
+            <li><div>lối thoát 1</div></li>
+            <li><div>lối thoát 1</div></li>
+        </ul>
+    </div>
+
+
+
 </div>
-<div class="main col-m-7" >main</div>
+<div class="main col-m-7" >main
+
+</div>
 <div class="rightmain col-m-3">right</div>
 </div>
 </body>
