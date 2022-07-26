@@ -48,7 +48,7 @@
     width: 380px;
     overflow: scroll;
     position: fixed;
-    alignment: center;
+    text-align: center;
 }
 .col-m-1{width: 8.33%}
 .col-m-2{width: 16.66%}
