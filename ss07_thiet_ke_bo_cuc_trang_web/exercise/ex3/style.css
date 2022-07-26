@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.menu ul li{
+    display: inline;
+    margin-right: 10px;
+    text-align: center;
+    border-right: solid 1px black;
+    padding-right: 10px;
+    line-height: 50px;
+}
+.menu ul li:hover {
+    background-color: ghostwhite;
+    font-weight: bolder;
+}
+.logo{
+    background-color: gray;
+    height: 70px;
+}
+.header2 {
+    background-color: gray;
+    height: 50px;
+    margin-top: 10px;
+}
+.leftvideo {
+    margin-top: 30px;
+}
+.mainvideo{
+    margin-top: 30px;
+    margin-left: auto;
+}
+.footer {
+    background-color: gray;
+    text-align: center;
+    color: white;
+    height: 50px;
+    line-height: 50px;
+
+}
+.leftvideo{
+    height: 760px;
+    width: 380px;
+    overflow: scroll;
+    position: fixed;
+    alignment: center;
+}
+.col-m-1{width: 8.33%}
+.col-m-2{width: 16.66%}
+.col-m-3{width: 25%}
+.col-m-4{width: 33.33%}
+.col-m-5{width: 41.67%}
+.col-m-6{width: 50%}
+.col-m-7{width: 58.33%}
+.col-m-8{width: 66.66%}
+.col-m-9{width: 75%}
+.col-m-10{width: 83.33%}
+.col-m-11{width: 91.67%}
+.col-m-12{width: 100%}
