@@ -7,6 +7,12 @@ import java.io.IOException;
 public class ProductDiscountCalculatorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         String product = request.getParameter("Product");
@@ -20,11 +26,5 @@ public class ProductDiscountCalculatorServlet extends HttpServlet {
         request.setAttribute("discountamount", discountAmount);
         request.setAttribute("discountprice", discountPrice);
         requestDispatcher.forward(request,response);
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

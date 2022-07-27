@@ -11,7 +11,7 @@
     <title>$Title$</title>
   </head>
   <body>
-  <form action="/calcu" method="get">
+  <form action="/calcu" method="post">
     <p>Mô tả của sản phẩm</p><input type="text" name="Product"><br>
     <p> Giá niêm yết của sản phẩm</p><input type="text" name="ListPrice"><br>
     <p>Tỷ lệ chiết khấu</p><input type="text" name="DiscountPercent"><br>
