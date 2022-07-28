@@ -10,14 +10,14 @@ public class Calculator {
             case "/":
                 try {
                     if(secondOperand ==0) {
-                        result =1/0;
+                        throw new ArithmeticException("cannot be divided by 0");
                     }else {
                     result = firstOperand / secondOperand;
                         str = ""+firstOperand +operator+secondOperand  +"="+ result;
                     }
                 } catch (ArithmeticException e) {
                   e.printStackTrace();
-                    str = "Không thể chia cho 0";
+                    str = e.getMessage();
                 }
                 break;
             case "*":
