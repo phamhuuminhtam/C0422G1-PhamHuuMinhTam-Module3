@@ -14,11 +14,21 @@ public class CalculatorServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        double firstOperand = Double.parseDouble(request.getParameter("firstOperand"));
-        double secondOperand = Double.parseDouble(request.getParameter("secondOperand"));
+       String result;
+        double firstOperand=0;
+        double secondOperand=0;
         String operator = request.getParameter("operator");
+        try {
+            firstOperand = Double.parseDouble(request.getParameter("firstOperand"));
+            secondOperand = Double.parseDouble(request.getParameter("secondOperand"));
+             result = Calculator.calculate(firstOperand,secondOperand,operator);
+       } catch (Exception e){
+            e.printStackTrace();
+           result="Dữ liệu không đúng định dạng";
+       }
 
-        String result = Calculator.calculate(firstOperand,secondOperand,operator);
+
+
     RequestDispatcher requestDispatcher = request.getRequestDispatcher("/index.jsp");
     request.setAttribute("result",result);
     request.setAttribute("firstOperand",firstOperand);

@@ -16,6 +16,7 @@ public class Calculator {
                         str = ""+firstOperand +operator+secondOperand  +"="+ result;
                     }
                 } catch (ArithmeticException e) {
+                  e.printStackTrace();
                     str = "Không thể chia cho 0";
                 }
                 break;
