@@ -9,11 +9,13 @@
 <html>
   <head>
     <title>$Title$</title>
+
   </head>
   <body>
   <h1>Simple Calculator</h1>
   <form action="/CalculatorServlet" method="post">
-  <legend>Calculator</legend>
+    <fieldset  style="width: 300px">
+    <legend>Calculator</legend>
     <table >
       <tr>
         <td> First Operand </td>
@@ -33,9 +35,10 @@
         <td><input type="text" name="secondOperand"></td>
       </tr>
     </table>
-   <button type="submit">Calculate</button>
-    <h1>RESULT:</h1>
-    <p> ${result}</p>
+     </fieldset>
   </form>
+  <button type="submit">Calculate</button>
+  <h1>RESULT:</h1>
+  <p> ${result}</p>
   </body>
 </html>

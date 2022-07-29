@@ -1,4 +1,4 @@
-import model.Calculator;
+import service.CalculatorService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -21,7 +21,7 @@ public class CalculatorServlet extends HttpServlet {
         try {
             firstOperand = Double.parseDouble(request.getParameter("firstOperand"));
             secondOperand = Double.parseDouble(request.getParameter("secondOperand"));
-             result = Calculator.calculate(firstOperand,secondOperand,operator);
+             result = CalculatorService.calculate(firstOperand,secondOperand,operator);
        } catch (Exception e){
             e.printStackTrace();
            result="Dữ liệu không đúng định dạng";
