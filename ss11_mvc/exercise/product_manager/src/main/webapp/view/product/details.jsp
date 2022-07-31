@@ -12,11 +12,9 @@
     <title>PRODUCT DETAILS</title>
 </head>
 <body>
-<form action="/product?action=searchId" method="post">
-   Enter ID <input type="number" name="id">
-    <button type="submit">SUBMIT</button>
+
     <button type="button" onclick="location.href='/product';">RETURN HOMEPAGE</button>
-</form>
+<h2>${message}</h2>
 <table>
     <tr>
         <th>ID</th>

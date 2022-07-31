@@ -1,4 +1,4 @@
-package repository.ReadAndWrite;
+package repository.read_and_write;
 
 import model.Product;
 
@@ -50,7 +50,7 @@ public class ReadAndWrite {
             }
         }
     }
-//    public Product(int id, String name, double price, String describe, String producer) {
+
     public static void writeProductToCsv(List<Product> productList, String pathFile,boolean appends){
         List<String> stringList = new ArrayList<>();
         for(Product p : productList ){

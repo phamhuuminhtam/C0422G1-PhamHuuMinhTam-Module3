@@ -2,12 +2,13 @@ package repository.impl;
 
 import model.Product;
 import repository.ProductRepository;
-import repository.ReadAndWrite.ReadAndWrite;
+import repository.read_and_write.ReadAndWrite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
-import static repository.ReadAndWrite.ReadAndWrite.*;
+import static repository.read_and_write.ReadAndWrite.*;
 
 public class ProductRepositoryImpl implements ProductRepository {
     @Override
@@ -69,7 +70,7 @@ public class ProductRepositoryImpl implements ProductRepository {
         List<Product> product=new ArrayList<>();
         List<Product> productList = readProductFromCsv(PRODUCT_PATH_FILE);
         for (Product p:productList) {
-            if (p.getName().equals(name)) {
+            if (p.getName().toLowerCase().contains(name.toLowerCase())) {
                 product.add(p);
 
             }

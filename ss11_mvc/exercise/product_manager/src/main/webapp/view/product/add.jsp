@@ -10,9 +10,11 @@
 <%--return  id +","+ name  +","+price  +","+describe  +","+producer ;--%>
 <%--}--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Title</title>
+
 </head>
 <body>
 <h1>ADD NEW PRODUCT</h1>
@@ -36,7 +38,8 @@
         </tr>
     </table>
 
-<button type="submit">Gửi</button>
+<button type="submit">SUBMIT</button>
+    <button type="button" onclick="location.href='/product';">RETURN HOMEPAGE</button>
 
 </form>
 </body>

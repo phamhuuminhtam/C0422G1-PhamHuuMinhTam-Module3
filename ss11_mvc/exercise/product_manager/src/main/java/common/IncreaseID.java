@@ -1,11 +1,11 @@
 package common;
 
 import model.Product;
-import repository.ReadAndWrite.ReadAndWrite;
+import repository.read_and_write.ReadAndWrite;
 
 import java.util.List;
 
-import static repository.ReadAndWrite.ReadAndWrite.PRODUCT_PATH_FILE;
+import static repository.read_and_write.ReadAndWrite.PRODUCT_PATH_FILE;
 
 public class IncreaseID {
 

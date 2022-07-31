@@ -2,7 +2,6 @@ package controller;
 
 import common.IncreaseID;
 import model.Product;
-import repository.ReadAndWrite.ReadAndWrite;
 import service.ProductService;
 import service.impl.ProductServiceImpl;
 
@@ -11,10 +10,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static repository.ReadAndWrite.ReadAndWrite.PRODUCT_PATH_FILE;
 
 @WebServlet(name = "ProductManagerServlet", value = "/product")
 public class ProductManagerServlet extends HttpServlet {
@@ -36,29 +32,18 @@ public class ProductManagerServlet extends HttpServlet {
                 showEditForm(request,response);
                 break;
             case "delete":
-                showDeleteForm(request,response);
+                deleteProduct(request,response);
                 break;
             case "searchId":
                 showProductForm(request,response);
                 break;
-            case "searchName":
-                showSearchForm(request,response);
-                break;
+
             default:
                 displayListProduct(request, response);
         }
     }
 
-    private void showSearchForm(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/product/searchbyname.jsp");
-        try {
-            requestDispatcher.forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     private void showProductForm(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/product/details.jsp");
@@ -71,27 +56,27 @@ public class ProductManagerServlet extends HttpServlet {
         }
     }
 
-    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Product product=null;
-        List<Product> productList = this.productService.findAll();
-        for (Product p:productList){
-            if(id ==p.getId()){
-                 product =p;
-                 break;
-            }
-        }
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/product/delete.jsp");
-        request.setAttribute("product", product);
-        request.setAttribute("id",id);
-        try {
-            requestDispatcher.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
+//        int id = Integer.parseInt(request.getParameter("id"));
+//        Product product=null;
+//        List<Product> productList = this.productService.findAll();
+//        for (Product p:productList){
+//            if(id ==p.getId()){
+//                 product =p;
+//                 break;
+//            }
+//        }
+//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/product/delete.jsp");
+//        request.setAttribute("product", product);
+//        request.setAttribute("id",id);
+//        try {
+//            requestDispatcher.forward(request, response);
+//        } catch (ServletException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
@@ -169,8 +154,13 @@ public class ProductManagerServlet extends HttpServlet {
     private void displayProductByName(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
         List<Product> product= this.productService.searchByName(name);
-        RequestDispatcher requestDispatcher= request.getRequestDispatcher("/view/product/searchbyname.jsp");
+        String message="";
+        if (product.isEmpty()){
+             message = "Not Found!";
+        }
+        RequestDispatcher requestDispatcher= request.getRequestDispatcher("/view/product/list.jsp");
         request.setAttribute("productList",product);
+        request.setAttribute("message",message);
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {
@@ -178,13 +168,19 @@ public class ProductManagerServlet extends HttpServlet {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private void displayProduct(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
        Product product= this.productService.display(id);
+        String message="";
+        if (product==null){
+            message = "Not Found!";
+        }
        RequestDispatcher requestDispatcher= request.getRequestDispatcher("/view/product/details.jsp");
        request.setAttribute("product",product);
+        request.setAttribute("message",message);
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {
