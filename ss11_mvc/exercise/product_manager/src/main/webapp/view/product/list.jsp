@@ -65,8 +65,7 @@
                                 Are you sure to delete this product: ${productList.name}
                             </div>
                             <div class="modal-footer">
-                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancle
-                                </button>
+                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                 <a href="/product?action=delete&id=${productList.id}" class="btn btn-danger">
                                     Confirm
                                 </a>
