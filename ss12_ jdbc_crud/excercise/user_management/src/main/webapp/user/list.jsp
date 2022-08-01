@@ -48,7 +48,7 @@
                 <td><c:out value="${user.country}"/></td>
                 <td>
                     <a href="/users?action=edit&id=${user.id}" class="btn btn-info">Edit</a>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idModal-${user.id}">DELETE</button>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#idModal-${user.id}">DELETE</button>
                     <div class="modal fade" id="idModal-${user.id}" tabindex="-1" aria-labelledby="exampleModalLabel"
                          aria-hidden="true">
                         <div class="modal-dialog">
