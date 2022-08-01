@@ -34,9 +34,7 @@ public class ProductManagerServlet extends HttpServlet {
             case "delete":
                 deleteProduct(request,response);
                 break;
-            case "searchId":
-                showProductForm(request,response);
-                break;
+
 
             default:
                 displayListProduct(request, response);
@@ -135,9 +133,6 @@ public class ProductManagerServlet extends HttpServlet {
                 break;
             case "update":
                 updateProduct(request,response);
-                break;
-            case "delete":
-                deleteProduct(request,response);
                 break;
             case "searchId":
                 displayProduct(request,response);

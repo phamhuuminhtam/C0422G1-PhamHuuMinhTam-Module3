@@ -17,19 +17,20 @@
 </head>
 <body>
 <div class="container">
-<h1>PRODUCT LIST</h1>
+    <a href="/product" style="text-decoration: none; color: black"><h1>PRODUCT LIST</h1></a>
+
 
 
 <button class="btn btn-primary" type="button" onclick="location.href='/product?action=add';">ADD NEW PRODUCT</button>
 <form action="/product?action=searchName" method="post" class="mt-3">
     Search the product name: <input type="text" name="name">
     <button class="btn btn-primary" type="submit">SEARCH</button>
-    <button type="button" class="btn btn-primary" onclick="location.href='/product';">RETURN HOMEPAGE</button>
+<%--    <button type="button" class="btn btn-primary" onclick="location.href='/product';">RETURN HOMEPAGE</button>--%>
 </form>
 <form action="/product?action=searchId" method="post">
     Show product details by ID <input type="number" name="id">
     <button class="btn btn-primary" type="submit">SUBMIT</button>
-    <button class="btn btn-primary" type="button" onclick="location.href='/product';">RETURN HOMEPAGE</button>
+<%--    <button class="btn btn-primary" type="button" onclick="location.href='/product';">RETURN HOMEPAGE</button>--%>
 </form>
 <h3 style="color: red">${message}</h3>
 
@@ -51,28 +52,28 @@
             <td>${productList.producer}</td>
             <td><a class="btn btn-primary" href="/product?action=update&id=${productList.id}">UPDATE</a></td>
             <td>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idModal-${productList.id}">DELETE</button>
-                <div class="modal fade" id="idModal-${productList.id}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Are you sure to delete this product: ${productList.name}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <a href="/product?action=delete&id=${productList.id}" class="btn btn-danger">
-                                    Confirm
-                                </a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idModal-${productList.id}">DELETE</button>
+                    <div class="modal fade" id="idModal-${productList.id}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure to delete this product: ${productList.name}
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <a href="/product?action=delete&id=${productList.id}" class="btn btn-danger">
+                                        Confirm
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </td>
 
         </tr>
