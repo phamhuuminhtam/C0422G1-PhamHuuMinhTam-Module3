@@ -25,7 +25,7 @@
 <form action="/product?action=searchName" method="post" class="mt-3">
     Search the product name: <input type="text" name="name">
     <button class="btn btn-primary" type="submit">SEARCH</button>
-<%--    <button type="button" class="btn btn-primary" onclick="location.href='/product';">RETURN HOMEPAGE</button>--%>
+    <button type="button" class="btn btn-primary" onclick="location.href='/product';">RETURN HOMEPAGE</button>
 </form>
 <form action="/product?action=searchId" method="post">
     Show product details by ID <input type="number" name="id">

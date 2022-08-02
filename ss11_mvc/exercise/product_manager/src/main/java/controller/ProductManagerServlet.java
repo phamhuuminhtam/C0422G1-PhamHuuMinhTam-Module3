@@ -41,7 +41,32 @@ public class ProductManagerServlet extends HttpServlet {
         }
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "add":
+                addProduct(request, response);
+                break;
+            case "update":
+                updateProduct(request,response);
+                break;
+            case "searchId":
+                displayProduct(request,response);
+                break;
+            case "searchName":
+                displayProductByName(request,response);
+                break;
+            default:
+                displayListProduct(request, response);
+        }
 
+    }
 
     private void showProductForm(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/product/details.jsp");
@@ -54,32 +79,12 @@ public class ProductManagerServlet extends HttpServlet {
         }
     }
 
-//    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response) {
-//        int id = Integer.parseInt(request.getParameter("id"));
-//        Product product=null;
-//        List<Product> productList = this.productService.findAll();
-//        for (Product p:productList){
-//            if(id ==p.getId()){
-//                 product =p;
-//                 break;
-//            }
-//        }
-//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/product/delete.jsp");
-//        request.setAttribute("product", product);
-//        request.setAttribute("id",id);
-//        try {
-//            requestDispatcher.forward(request, response);
-//        } catch (ServletException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
         int id = Integer.parseInt(request.getParameter("id"));
+        Product product =  this.productService.display(id);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/view/product/update.jsp");
-        request.setAttribute("id",id);
+        request.setAttribute("product",product);
         try {
             requestDispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -119,32 +124,7 @@ public class ProductManagerServlet extends HttpServlet {
         }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html; charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
-        if (action == null) {
-            action = "";
-        }
-        switch (action) {
-            case "add":
-                addProduct(request, response);
-                break;
-            case "update":
-                updateProduct(request,response);
-                break;
-            case "searchId":
-                displayProduct(request,response);
-                break;
-            case "searchName":
-                displayProductByName(request,response);
-                break;
-            default:
-                displayListProduct(request, response);
-        }
 
-    }
 
     private void displayProductByName(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
