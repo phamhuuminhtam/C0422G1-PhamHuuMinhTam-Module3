@@ -68,7 +68,7 @@ public class UserServlet extends HttpServlet {
 
     private void addUserPermision(HttpServletRequest request, HttpServletResponse response) {
         User user = new User("quan", "quan.nguyen@codegym.vn", "vn");
-        int[] permision = {1, 2, 4};
+        int[] permision = {1, 2, 5};
         userRepository.addUserTransaction(user, permision);
     }
 

@@ -59,29 +59,59 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-    public void addUserTransaction(User user) throws SQLException {
-        System.out.println(INSERT_USERS_SQL);
-        // try-with-resource statement will auto close the connection.
+    public void addUserTransaction(User user,int[] permisions) throws SQLException {
 
-        try (Connection connection = getConnection(); PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USERS_SQL)) {
-            connection.setAutoCommit(false);
-            if(user.getName()=="" | user.getCountry()==""| user.getEmail()==""){
-                connection.rollback();
+            Connection conn = null;
+            PreparedStatement pstmt = null;
+            PreparedStatement pstmtAssignment = null;
+            ResultSet rs = null;
+            try {
+                conn = getConnection();
+                conn.setAutoCommit(false);
+                pstmt = conn.prepareStatement(INSERT_USERS_SQL, Statement.RETURN_GENERATED_KEYS);
+                pstmt.setString(1, user.getName());
+                pstmt.setString(2, user.getEmail());
+                pstmt.setString(3, user.getCountry());
+                int rowAffected = pstmt.executeUpdate();
 
-            }else {
-                preparedStatement.setString(1, user.getName());
-                preparedStatement.setString(2, user.getEmail());
-                preparedStatement.setString(3, user.getCountry());
-                System.out.println(preparedStatement);
-                preparedStatement.executeUpdate();
-                connection.commit();
-                connection.setAutoCommit(true);
+                rs = pstmt.getGeneratedKeys();
+                int userId = 0;
+                if (rs.next())
+                    userId = rs.getInt(1);
+
+                if (rowAffected == 1) {
+                    String sqlPivot = "INSERT INTO user_permision(user_id,permision_id) "
+                            + "VALUES(?,?)";
+                    pstmtAssignment = conn.prepareStatement(sqlPivot);
+                    for (int permisionId : permisions) {
+                        pstmtAssignment.setInt(1, userId);
+                        pstmtAssignment.setInt(2, permisionId);
+                        pstmtAssignment.executeUpdate();
+                    }
+                    conn.commit();
+                } else {
+                    conn.rollback();
+                }
+            } catch (SQLException ex) {
+                try {
+                    if (conn != null)
+                        conn.rollback();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+                System.out.println(ex.getMessage());
+            } finally {
+                try {
+                    if (rs != null) rs.close();
+                    if (pstmt != null) pstmt.close();
+                    if (pstmtAssignment != null) pstmtAssignment.close();
+                    if (conn != null) conn.close();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-
-        } catch (SQLException e) {
-            printSQLException(e);
         }
-    }
+
 
     public User selectUser(int id) {
         User user = null;
@@ -108,20 +138,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     public List<User> selectAllUsers() {
-
-        // using try-with-resources to avoid closing resources (boiler plate code)
         List<User> users = new ArrayList<>();
-        // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
-
-             // Step 2:Create a statement using connection object
 //             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_USERS);)
              CallableStatement callableStatement = connection.prepareCall(SELECT_ALL_USERS_SP); ){
             System.out.println(callableStatement);
-            // Step 3: Execute the query or update query
-            ResultSet rs = callableStatement.executeQuery();
 
-            // Step 4: Process the ResultSet object.
+            ResultSet rs = callableStatement.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -138,11 +161,14 @@ public class UserRepositoryImpl implements UserRepository {
     public boolean deleteUser(int id) throws SQLException {
         boolean rowDeleted;
         try (Connection connection = getConnection();
-//             PreparedStatement statement = connection.prepareStatement(DELETE_USERS_SQL);
-             CallableStatement callableStatement = connection.prepareCall(DELETE_USERS_BY_ID)
+             PreparedStatement statement0 = connection.prepareStatement("SET foreign_key_checks = 0;");
+             CallableStatement callableStatement = connection.prepareCall(DELETE_USERS_BY_ID);
+             PreparedStatement statement1 = connection.prepareStatement("SET foreign_key_checks = 1;");
              ) {
             callableStatement.setInt(1, id);
+            statement0.executeUpdate();
             rowDeleted = callableStatement.executeUpdate() > 0;
+            statement1.executeUpdate();
         }
         return rowDeleted;
     }
@@ -185,10 +211,9 @@ public class UserRepositoryImpl implements UserRepository {
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_USER_BY_COUNTRY);) {
             preparedStatement.setString(1, "%"+countrySearch+"%");
             System.out.println(preparedStatement);
-            // Step 3: Execute the query or update query
+
             ResultSet rs = preparedStatement.executeQuery();
 
-            // Step 4: Process the ResultSet object.
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");

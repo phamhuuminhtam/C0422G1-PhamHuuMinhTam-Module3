@@ -64,6 +64,9 @@ public class UserServlet extends HttpServlet {
                     case "sortbyname":
                         sortbyname(request, response);
                     break;
+                case "permision":
+                    addUserPermision(request, response);
+                    break;
 
                 default:
                     listUser(request, response);
@@ -71,6 +74,16 @@ public class UserServlet extends HttpServlet {
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        }
+    }
+
+    private void addUserPermision(HttpServletRequest request, HttpServletResponse response) {
+        User user = new User("triheo", "tri.ga@codegym.vn", "Viet Nam");
+        int[] permision = {1, 2, 5};
+        try {
+            userService.addUserTransaction(user, permision);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

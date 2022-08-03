@@ -17,4 +17,5 @@ public interface UserService {
     public boolean updateUser(User user) throws SQLException;
     public List<User> searchByCountry(String countrySearch);
     public  List<User> sortByName();
+    void addUserTransaction(User user, int[] permision) throws SQLException;
 }
