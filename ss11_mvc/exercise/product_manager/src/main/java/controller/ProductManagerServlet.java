@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-@WebServlet(name = "ProductManagerServlet", value = "/product")
+@WebServlet(name = "ProductManagerServlet", urlPatterns = {"/product",""})
 public class ProductManagerServlet extends HttpServlet {
     ProductService productService = new ProductServiceImpl();
 
