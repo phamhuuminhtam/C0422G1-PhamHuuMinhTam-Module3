@@ -23,7 +23,7 @@
             <ul class="navbar-nav me-auto  mb-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active text-white" aria-current="page" onclick="location.href='/ControllerServlet'">Home</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -55,8 +55,8 @@
                         Service
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Danh sách dịch vụ</a></li>
-                        <li><a class="dropdown-item" href="#">Thêm mới dịch vụ</a></li>
+                        <li><a class="dropdown-item" onclick="location.href='/ControllerServlet?action=displayServiceList'">Danh sách dịch vụ</a></li>
+                        <li><a class="dropdown-item" onclick="location.href='/ControllerServlet?action=displayAddService'">Thêm mới dịch vụ</a></li>
 
                     </ul>
                 </li>
