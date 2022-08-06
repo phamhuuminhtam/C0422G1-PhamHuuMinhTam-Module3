@@ -10,7 +10,7 @@ public interface CustomerRepository {
 
         boolean add(Customer customer);
 
-        void edit();
+        boolean edit(Customer customer,int id);
 
         boolean delete(int id);
 

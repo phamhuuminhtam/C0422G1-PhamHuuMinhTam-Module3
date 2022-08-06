@@ -7,21 +7,22 @@ import service.customer.CustomerService;
 
 import java.util.List;
 
-public class CustomerServiceImpl implements CustomerService{
+public class CustomerServiceImpl implements CustomerService {
     CustomerRepository customerRepository = new CustomerRepositoryImpl();
+
     @Override
     public boolean add(Customer customer) {
-       return customerRepository.add(customer);
+        return customerRepository.add(customer);
     }
 
     @Override
-    public void edit() {
-
+    public boolean edit(Customer customer,int id) {
+        return customerRepository.edit(customer,id);
     }
 
     @Override
     public boolean delete(int id) {
-return customerRepository.delete(id);
+        return customerRepository.delete(id);
     }
 
     @Override

@@ -14,6 +14,7 @@ import java.util.List;
 public class CustomerRepositoryImpl implements CustomerRepository {
 
     private final String INSERT_CUSTOMER = "insert into khach_hang(ma_loai_khach,ho_ten,ngay_sinh,gioi_tinh,so_cmnd,so_dien_thoai,email,dia_chi) values(?,?,?,?,?,?,?,?);";
+    private final String UPDATE_CUSTOMER = "update khach_hang set ma_loai_khach=?,ho_ten=?,ngay_sinh=?,gioi_tinh=?,so_cmnd=?,so_dien_thoai=?,email=?,dia_chi=? where ma_khach_hang=?;";
     private final String SELECT_TYPE_OF_GUEST_NAME = "select * from loai_khach";
 
     public List<GuestType> getGuestTypeList(){
@@ -67,8 +68,36 @@ public class CustomerRepositoryImpl implements CustomerRepository {
     }
 
     @Override
-    public void edit() {
+    public boolean edit(Customer customer,int id) {
+        int check;
+        Connection connection =BaseConnection.getConnection();
+//        List<GuestType> guestTypeList = getGuestTypeList();
+        int guestTypeId= Integer.parseInt(customer.getTypeOfGuest());
+//        for (GuestType g : guestTypeList){
+//            if(customer.getTypeOfGuest().equals(g.getGuestTypeName())){
+//                guestTypeId=g.getGuestTypeId();
+//            }
+//        }
+        int gender= Integer.parseInt(customer.getGender());
 
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CUSTOMER);
+            preparedStatement.setInt(1,guestTypeId);
+            preparedStatement.setString(2,customer.getName());
+            preparedStatement.setDate(3, Date.valueOf(customer.getDayOfBirth()));
+            preparedStatement.setInt(4,gender);
+            preparedStatement.setString(5,customer.getPersonalCode());
+            preparedStatement.setString(6,customer.getPhoneNumber());
+            preparedStatement.setString(7,customer.getEmail());
+            preparedStatement.setString(8,customer.getAddress());
+            preparedStatement.setInt(9,id);
+
+            check= preparedStatement.executeUpdate();
+            return check==1;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

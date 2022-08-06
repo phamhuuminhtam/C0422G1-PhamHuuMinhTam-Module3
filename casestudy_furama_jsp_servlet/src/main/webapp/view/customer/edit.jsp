@@ -26,13 +26,19 @@
             <input type="text" class="form-control" id="name" name="name" value="${customer.name}">
         </div>
         <div class="col-md-12">
-            <label for="birhtday" class="form-label">Ngày sinh </label>
-            <input type="date" class="form-control" id="birhtday" name="birhtday" value="${customer.dayOfBirth}">
+            <label for="birthday" class="form-label">Ngày sinh </label>
+            <input type="date" class="form-control" id="birthday" name="birthday" value="${customer.dayOfBirth}">
         </div>
         <div class="col-md-12">
             <label  class="form-label me-4">Giới tính </label>
-            <input type="radio"  class="form-check-input" name="gender" > <span class="me-3">Nam</span>
-            <input type="radio" class="form-check-input" name="gender">Nữ
+            <c:if test="${customer.gender=='Nam'}">
+            <input type="radio"  class="form-check-input" name="gender" value="1" checked> Nam
+                <input type="radio" class="form-check-input" name="gender" value="0" >Nữ
+            </c:if>
+            <c:if test="${customer.gender=='Nữ'}">
+                <input type="radio"  class="form-check-input" name="gender" value="1" > Nam
+            <input type="radio" class="form-check-input" name="gender" value="0" checked>Nữ</c:if>
+
         </div>
         <div class="col-md-12">
             <label for="id_card" class="form-label">Số CMND</label>
@@ -52,7 +58,7 @@
             <select name="customer_type_id" id="mySelect" class="form-select" onload="loadSelectOption(${customer.typeOfGuest})" >
                 <option value="0" disabled >Chọn loại khách</option>
                 <c:forEach var="guestTypeList" items="${guestTypeList}">
-                    <option value="${guestTypeList.guestTypeId}" >${guestTypeList.guestTypeId}</option>
+                    <option value="${guestTypeList.guestTypeId}" >${guestTypeList.guestTypeName}</option>
                 </c:forEach>
             </select >
 

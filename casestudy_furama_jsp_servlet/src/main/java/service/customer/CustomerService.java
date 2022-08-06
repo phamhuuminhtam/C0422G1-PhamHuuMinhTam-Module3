@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CustomerService {
     boolean add(Customer customer);
-    void edit();
+    boolean edit(Customer customer,int id);
     boolean delete(int id);
     List<Customer> search();
     List<Customer> findAll();

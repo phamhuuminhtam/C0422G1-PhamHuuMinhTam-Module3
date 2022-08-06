@@ -60,17 +60,23 @@ public class CustomerControllerServlet extends HttpServlet {
     }
 
     private void editCustomerById(HttpServletRequest request, HttpServletResponse response) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        LocalDate dayOfBirth = LocalDate.parse(request.getParameter("birthday"));
+        int gender = Integer.parseInt(request.getParameter("gender"));
 
-    }
-
-    private void deleteCustomerById(HttpServletRequest request, HttpServletResponse response) {
-      boolean check;
-        int id = Integer.parseInt(request.getParameter("personid"));
-     check= customerService.delete(id);
+        String personalCode = request.getParameter("id_card");
+        String phoneNumber= request.getParameter("phone");
+        String email= request.getParameter("email");
+        String typeOfGuest = request.getParameter("customer_type_id");
+        String address = request.getParameter("address");
+        Customer customer = new Customer(name,dayOfBirth,gender+"",personalCode,phoneNumber,email,typeOfGuest,address);
+        boolean check = customerService.edit(customer,id);
         String message="";
         if(check){
-            message="Xóa thành công";
-        }else message="Xóa thất bại";
+            message="Tạo mới thành công";
+        }else message="Tạo mới thất bại";
+
         List<Customer> customerList = customerService.findAll();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
         request.setAttribute("message",message);
@@ -85,7 +91,29 @@ public class CustomerControllerServlet extends HttpServlet {
 
     }
 
-    //    public Customer(String name, LocalDate dayOfBirth, String gender, String personalCode, String phoneNumber, String email, String typeOfGuest, String address) {
+    private void deleteCustomerById(HttpServletRequest request, HttpServletResponse response) {
+      boolean check;
+        int id = Integer.parseInt(request.getParameter("personid"));
+     check= customerService.delete(id);
+//        String message="";
+//        if(check){
+//            message="Xóa thành công";
+//        }else message="Xóa thất bại";
+        List<Customer> customerList = customerService.findAll();
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
+//        request.setAttribute("message",message);
+        request.setAttribute("customerList",customerList);
+        try {
+            requestDispatcher.forward(request,response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+   
     private void addNewCustomer(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
         LocalDate dayOfBirth = LocalDate.parse(request.getParameter("birthday"));
