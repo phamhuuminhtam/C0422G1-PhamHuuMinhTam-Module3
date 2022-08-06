@@ -55,10 +55,17 @@
 
         <div class="col-md-12">
             <label class="form-label">Loại khách </label>
-            <select name="customer_type_id" id="mySelect" class="form-select" onload="loadSelectOption(${customer.typeOfGuest})" >
+            <select name="customer_type_id" id="mySelect" class="form-select" >
                 <option value="0" disabled >Chọn loại khách</option>
                 <c:forEach var="guestTypeList" items="${guestTypeList}">
-                    <option value="${guestTypeList.guestTypeId}" >${guestTypeList.guestTypeName}</option>
+                    <c:choose>
+                        <c:when test="${customer.typeOfGuest==guestTypeList.guestTypeId}">
+                            <option value="${guestTypeList.guestTypeId}" selected>${guestTypeList.guestTypeName}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${guestTypeList.guestTypeId}" >${guestTypeList.guestTypeName}</option>
+                        </c:otherwise>
+                    </c:choose>
                 </c:forEach>
             </select >
 
@@ -78,19 +85,7 @@
 
 <%@include file="/view/include/footer.jsp"%>
 
-<script>
-    function loadSelectOption(a){
-    var temp = a;
-    var mySelect = document.getElementById('mySelect');
 
-    for(var i, j = 0; i = mySelect.options[j]; j++) {
-        if(i.value == temp) {
-            mySelect.selectedIndex = j+1;
-            break;
-        }
-    }
-    }
-</script>
 
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="/bootstrap/js/jquery-3.6.0.min.js"></script>
