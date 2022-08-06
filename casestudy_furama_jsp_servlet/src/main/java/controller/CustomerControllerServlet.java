@@ -113,7 +113,7 @@ public class CustomerControllerServlet extends HttpServlet {
 
     }
 
-   
+
     private void addNewCustomer(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
         LocalDate dayOfBirth = LocalDate.parse(request.getParameter("birthday"));
