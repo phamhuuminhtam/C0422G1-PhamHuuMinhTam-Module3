@@ -63,7 +63,7 @@
                         Customer
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" onclick="location.href='/customer?action=displayCustomerList'">Danh sách khách hàng</a></li>
+                        <li><a class="dropdown-item" onclick="location.href='/customer'">Danh sách khách hàng</a></li>
                         <li><a class="dropdown-item" onclick="location.href='/customer?action=displayAddCustomer'">Thêm mới khách hàng</a></li>
                     </ul>
                 </li>

@@ -28,7 +28,7 @@ CREATE TABLE bo_phan (
     ten_bo_phan VARCHAR(45)
 );
 CREATE TABLE khach_hang (
-    ma_khach_hang INT NOT NULL,
+    ma_khach_hang INT NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (ma_khach_hang),
     ma_loai_khach INT NOT NULL,
     ho_ten VARCHAR(45) NOT NULL,
@@ -98,7 +98,7 @@ alter table nhan_vien add foreign key (ma_vi_tri) references vi_tri(ma_vi_tri);
 alter table nhan_vien add foreign key (ma_trinh_do) references trinh_do(ma_trinh_do);
 alter table nhan_vien add foreign key (ma_bo_phan) references bo_phan(ma_bo_phan);
 alter table hop_dong add foreign key (ma_nhan_vien) references nhan_vien(ma_nhan_vien);
-alter table hop_dong add foreign key (ma_khach_hang) references khach_hang(ma_khach_hang);
+alter table hop_dong add foreign key (ma_khach_hang) references khach_hang(ma_khach_hang) on delete CASCADE ;
 alter table hop_dong add foreign key (ma_dich_vu) references dich_vu(ma_dich_vu);
 alter table khach_hang add foreign key (ma_loai_khach) references loai_khach(ma_loai_khach);
 alter table dich_vu	add foreign key (ma_kieu_thue) references kieu_thue(ma_kieu_thue);
@@ -212,3 +212,14 @@ INSERT INTO hop_dong_chi_tiet (ma_hop_dong_chi_tiet, ma_hop_dong, ma_dich_vu_di_
  ('6', '1', '3', 1),
  ('7', '1', '2', 2),
  ('8', '12', '2', 2);
+ 
+ DELIMITER $$
+create procedure detete_customer(in ma_khach_hang_in int)
+begin
+set foreign_key_checks =0;
+delete from khach_hang where ma_khach_hang =ma_khach_hang_in;
+set foreign_key_checks =1;
+end $$
+DELIMITER ;
+
+

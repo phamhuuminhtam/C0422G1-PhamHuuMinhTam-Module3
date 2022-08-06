@@ -15,7 +15,7 @@
 
 <%@include file="/view/include/header.jsp" %>
 <div class="container">
-    <button style="position: fixed;right: 0" type="button" class="btn btn-primary" data-bs-toggle="modal"
+    <button style="position: fixed;right: 0" type="button" class="btn btn-success mt-1" data-bs-toggle="modal"
             data-bs-target="#addContact" onclick="">
         THÊM MỚI HỢP ĐỒNG
     </button>
@@ -42,7 +42,7 @@
                 <td>4</td>
                 <td>5</td>
                 <td>6</td>
-                <td>
+                <td class="d-flex justify-content-center">
 
                     <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal"
                             data-bs-target="#addContactDetail" onclick="">
@@ -205,7 +205,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">THÊM DỊCH VỤ ĐI KÈM</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

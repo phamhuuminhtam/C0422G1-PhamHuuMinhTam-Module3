@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: WSWINDOWS
@@ -17,7 +18,7 @@
 
 <div class="container w-50 mt-4 p-2 mb-4" style="border: 1px solid grey; border-radius: 15px">
     <h3 align="center">THÊM MỚI KHÁCH HÀNG</h3>
-    <form class="row g-3" action="" method="post">
+    <form class="row g-3" action="/customer?action=addNewCustomer" method="post">
 
 
         <div class="col-md-12">
@@ -25,13 +26,13 @@
             <input type="text" class="form-control" id="name" name="name">
         </div>
         <div class="col-md-12">
-            <label for="birhtday" class="form-label">Ngày sinh </label>
-            <input type="date" class="form-control" id="birhtday" name="birhtday">
+            <label for="birthday" class="form-label">Ngày sinh </label>
+            <input type="date" class="form-control" id="birthday" name="birthday">
         </div>
         <div class="col-md-12">
             <label  class="form-label me-4">Giới tính </label>
-            <input type="radio"  class="form-check-input" name="gender" > <span class="me-3">Nam</span>
-            <input type="radio" class="form-check-input" name="gender">Nữ
+            <input type="radio"  class="form-check-input" name="gender" value="1" > Nam
+            <input type="radio" class="form-check-input" name="gender" value="0">Nữ
         </div>
         <div class="col-md-12">
             <label for="id_card" class="form-label">Số CMND</label>
@@ -50,11 +51,10 @@
             <label class="form-label">Loại khách </label>
             <select name="customer_type_id"  class="form-select" >
                 <option value="None" >Chọn loại khách</option>
-                <option value="1" >Diamond</option>
-                <option value="2" >Platinium</option>
-                <option value="3" >Gold</option>
-                <option value="4" >Silver</option>
-                <option value="5" >Member</option>
+                <c:forEach var="guestTypeList" items="${guestTypeList}">
+                <option value="${guestTypeList.guestTypeName}" >${guestTypeList.guestTypeName}</option>
+                </c:forEach>
+
             </select>
         </div>
 
