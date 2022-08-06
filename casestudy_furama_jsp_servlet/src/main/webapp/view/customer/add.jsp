@@ -50,7 +50,7 @@
         <div class="col-md-12">
             <label class="form-label">Loại khách </label>
             <select name="customer_type_id"  class="form-select" >
-                <option value="None" >Chọn loại khách</option>
+                <option value="None" disabled >Chọn loại khách</option>
                 <c:forEach var="guestTypeList" items="${guestTypeList}">
                 <option value="${guestTypeList.guestTypeName}" >${guestTypeList.guestTypeName}</option>
                 </c:forEach>

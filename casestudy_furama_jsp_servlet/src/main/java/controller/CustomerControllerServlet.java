@@ -52,8 +52,14 @@ public class CustomerControllerServlet extends HttpServlet {
             case "deleteCustomer":
                 deleteCustomerById(request,response);
                 break;
-
+            case "editCustomer":
+                editCustomerById(request,response);
+                break;
         }
+
+    }
+
+    private void editCustomerById(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
@@ -114,7 +120,14 @@ public class CustomerControllerServlet extends HttpServlet {
     }
 
     private void displayEditCustomer(HttpServletRequest request, HttpServletResponse response) {
+        CustomerRepository customerRepository = new CustomerRepositoryImpl();
+        int pId = Integer.parseInt(request.getParameter("id"));
+        Customer customer = customerService.searchCustomer(pId);
+        List<GuestType> guestTypeList = customerRepository.getGuestTypeList();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/customer/edit.jsp");
+        request.setAttribute("customer",customer);
+        request.setAttribute("pId",pId);
+        request.setAttribute("guestTypeList",guestTypeList);
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {

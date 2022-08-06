@@ -34,4 +34,9 @@ return customerRepository.delete(id);
 
         return customerRepository.showAll();
     }
+
+    @Override
+    public Customer searchCustomer(int id_search) {
+        return customerRepository.searchCustomer(id_search);
+    }
 }

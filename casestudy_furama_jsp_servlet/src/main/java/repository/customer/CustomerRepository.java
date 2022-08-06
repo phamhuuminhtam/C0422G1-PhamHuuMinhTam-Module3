@@ -16,5 +16,6 @@ public interface CustomerRepository {
 
         List<Customer> search();
         List<GuestType> getGuestTypeList();
+        Customer searchCustomer(int id_search);
 }
 

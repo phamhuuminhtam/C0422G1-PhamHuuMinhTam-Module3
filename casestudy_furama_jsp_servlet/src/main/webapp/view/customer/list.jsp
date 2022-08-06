@@ -57,7 +57,7 @@
                 <td>${customerList.typeOfGuest}</td>
                 <td>${customerList.address}</td>
                 <td>
-                    <a type="button" class="btn btn-primary" href="/customer?action=displayEditCustomer&id='${customerList.pId}'">
+                    <a type="button" class="btn btn-primary" href="/customer?action=displayEditCustomer&id=${customerList.pId}">
                         Sửa
                     </a>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="showModalDelete('${customerList.pId}','${customerList.name}')">

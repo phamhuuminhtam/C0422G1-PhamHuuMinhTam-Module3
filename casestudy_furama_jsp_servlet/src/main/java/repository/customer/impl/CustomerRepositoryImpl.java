@@ -123,5 +123,32 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         return customerList;
     }
 
+    public Customer searchCustomer(int id_search){
+        Connection connection=BaseConnection.getConnection();
+        Customer customer=null;
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from khach_hang where ma_khach_hang =?;");
+            preparedStatement.setInt(1,id_search);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                String id =rs.getString(1);
+                String name =rs.getString(3);
+                LocalDate dayOfBirth = LocalDate.parse(rs.getString(4), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                String gender;
+                if(rs.getInt(5)==0) {
+                    gender = "Nữ";
+                }else  gender ="Nam";
+                String personalCode = rs.getString(6);
+                String phoneNumber = rs.getString(7);
+                String email = rs.getString(8);
+                String address = rs.getString(9);
+                String typeOfGuest=rs.getString(2);
+               customer = new Customer(id,name,dayOfBirth,gender,personalCode,phoneNumber,email,typeOfGuest,address);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        return customer;
+    }
 }
