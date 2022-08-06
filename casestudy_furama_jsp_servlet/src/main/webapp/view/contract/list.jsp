@@ -13,8 +13,12 @@
 </head>
 <body>
 
-<%@include file="/view/include/header.jsp"%>
+<%@include file="/view/include/header.jsp" %>
 <div class="container">
+    <button style="position: fixed;right: 0" type="button" class="btn btn-primary" data-bs-toggle="modal"
+            data-bs-target="#addContact" onclick="">
+        THÊM MỚI HỢP ĐỒNG
+    </button>
     <h2 CLASS="text-center">DANH SÁCH HỢP ĐỒNG</h2>
     <div class="row main mt-2 ">
         <table class="table table-striped">
@@ -40,7 +44,7 @@
                 <td>6</td>
                 <td>
 
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal"
                             data-bs-target="#addContactDetail" onclick="">
                         +
                     </button>
@@ -59,9 +63,9 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="addContactDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addContact" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form action="" method="">
+
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">TẠO HỢP ĐỒNG</h5>
@@ -113,7 +117,8 @@
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">DỊch vụ đi kèm</label>
-                                <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal" data-bs-target="#"  onclick="displayAttachFacility()">
+                                <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal"
+                                        data-bs-target="#" onclick="displayAttachFacility()">
                                     +
                                 </button>
 
@@ -123,9 +128,13 @@
                                         <th>Đơn vị</th>
                                         <th>Giá tiền</th>
                                         <th>Số lượng</th>
-                                        <th><button style="display: none" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#" id="buttonHide" onclick="hideAttachFacility()">
-                                            x
-                                        </button></th>
+                                        <th>
+                                            <button style="display: none" type="button" class="btn btn-danger"
+                                                    data-bs-toggle="modal" data-bs-target="#" id="buttonHide"
+                                                    onclick="hideAttachFacility()">
+                                                x
+                                            </button>
+                                        </th>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox"> Karaoke</td>
@@ -150,13 +159,14 @@
 
                             </div>
                             <div class="col-12  mt-2 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary">Gửi</button>
+                                <button type="button" class="btn btn-secondary me-3" data-bs-dismiss="modal">Hủy bỏ</button>
+                                <button type="submit" class="btn btn-warning">Tạo hợp đồng</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </form>
+
     </div>
 </div>
 
@@ -191,22 +201,69 @@
     </div>
 </div>
 
+<div class="modal fade" id="addContactDetail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Tên dịch vụ đi kèm</th>
+                            <th>Đơn vị</th>
+                            <th>Giá tiền</th>
+                            <th>Số lượng</th>
+
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"> Karaoke</td>
+                            <td>Giờ</td>
+                            <td>100000</td>
+                            <td><input style="width: 70px" type="number"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"> Thuê xe máy</td>
+                            <td>Giờ</td>
+                            <td>100000</td>
+                            <td><input style="width: 70px" type="number"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox"> Thuê xe đạp</td>
+                            <td>Giờ</td>
+                            <td>100000</td>
+                            <td><input style="width: 70px" type="number"></td>
+                        </tr>
+
+                    </table>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy bỏ</button>
+                <button type="button" class="btn btn-primary">Thêm</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     function displayAttachFacility() {
-        document.getElementById("tableFacilityContract").style.display='block'
-        document.getElementById("buttonHide").style.display='block'
+        document.getElementById("tableFacilityContract").style.display = 'block'
+        document.getElementById("buttonHide").style.display = 'block'
 
     }
+
     function hideAttachFacility() {
-        document.getElementById("tableFacilityContract").style.display='none'
-        document.getElementById("buttonHide").style.display='none'
+        document.getElementById("tableFacilityContract").style.display = 'none'
+        document.getElementById("buttonHide").style.display = 'none'
 
     }
 
 
 </script>
-<%@include file="/view/include/footer.jsp"%>
+<%@include file="/view/include/footer.jsp" %>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
 <script src="/bootstrap/js/jquery-3.6.0.min.js"></script>
 </body>
