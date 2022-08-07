@@ -50,7 +50,7 @@
                     </button>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#attachFacility" onclick="showModalDeleteControl('a','b','c')">
-                        Danh sách các dịch vụ đi kèm
+                        Danh sách các dịch vụ miễn phí đi kèm
                     </button>
                 </td>
 
@@ -116,7 +116,7 @@
                                 </select>
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label">DỊch vụ đi kèm</label>
+                                <label class="form-label">Dịch vụ đi kèm</label>
                                 <button type="button" class="btn btn-primary mt-2 mb-2" data-bs-toggle="modal"
                                         data-bs-target="#" onclick="displayAttachFacility()">
                                     +
@@ -175,7 +175,7 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalEditLable">DANH SÁCH DỊCH VỤ ĐI KÈM</h5>
+                <h5 class="modal-title" id="modalEditLable">DANH SÁCH DỊCH VỤ MIỄN PHÍ ĐI KÈM</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body container-fluid">

@@ -222,3 +222,11 @@ set foreign_key_checks =1;
 end $$
 DELIMITER ;
 
+DELIMITER $$
+create procedure detete_facility(in ma_dich_vu_in int)
+begin
+set foreign_key_checks =0;
+delete from dich_vu where ma_dich_vu =ma_dich_vu_in;
+set foreign_key_checks =1;
+end $$
+DELIMITER ;
