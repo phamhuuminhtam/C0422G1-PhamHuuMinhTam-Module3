@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: WSWINDOWS
@@ -17,14 +18,14 @@
 
 <div class="container w-50 mt-2 p-2" style="border: 1px solid grey; border-radius: 15px">
     <h3 align="center">THÊM MỚI DỊCH VỤ</h3>
-    <form class="row g-3" action="" method="post">
+    <form class="row g-3" action="/facility?action=AddService" method="post">
         <div class="col-md-12">
             <label class="form-label">Loại dịch vụ</label>
-            <select name=""  class="form-select" onchange="showServiceInput(this)">
-                <option value="None" >Chọn loại dịch vụ</option>
-                <option value="Villa" >Villa</option>
-                <option value="House" >House</option>
-                <option value="Room" >Room</option>
+            <select name="serviceType"  class="form-select" onchange="showServiceInput(this)">
+                <option value="None" disabled selected>Chọn loại dịch vụ</option>
+                <c:forEach items="${serviceTypes}" var="serviceTypes">
+                <option value="${serviceTypes.serviceTypeCode}" >${serviceTypes.serviceTypeName}</option>
+                </c:forEach>
             </select>
         </div>
 
@@ -45,8 +46,13 @@
             <input type="text" class="form-control" id="max_people"  name="max_people" >
         </div>
         <div class="col-md-12">
-            <label for="inputCity" class="form-label">Kiểu thuê</label>
-            <input type="text" class="form-control" id="inputCity" name="rent_type_id">
+            <label  class="form-label">Kiểu thuê</label>
+            <select name="rentalType"  class="form-select">
+                <option value="None" disabled selected>Chọn kiểu thuê</option>
+                <c:forEach items="${rentalTypeList}" var="rentalTypeList">
+                    <option value="${rentalTypeList.rentalTypeCode}" >${rentalTypeList.rentalTypeName}</option>
+                </c:forEach>
+            </select>
         </div>
         <div class="col-md-12 " id="s1" style="display: none">
             <label for="standard_room" class="form-label">Tiêu chuẩn phòng </label>
@@ -92,21 +98,21 @@
                 document.getElementById("s4").style.display="none";
                 document.getElementById("s5").style.display="none";
                 break;
-            case "Villa":
+            case "1":
                 document.getElementById("s1").style.display="block";
                 document.getElementById("s2").style.display="block";
                 document.getElementById("s3").style.display="block";
                 document.getElementById("s4").style.display="block";
                 document.getElementById("s5").style.display="none";
                 break;
-            case "House":
+            case "2":
                 document.getElementById("s1").style.display="block";
                 document.getElementById("s2").style.display="block";
                 document.getElementById("s4").style.display="block";
                 document.getElementById("s5").style.display="none";
                 document.getElementById("s3").style.display="none";
                 break;
-            case "Room":
+            case "3":
                 document.getElementById("s1").style.display="none";
                 document.getElementById("s2").style.display="none";
                 document.getElementById("s3").style.display="none";

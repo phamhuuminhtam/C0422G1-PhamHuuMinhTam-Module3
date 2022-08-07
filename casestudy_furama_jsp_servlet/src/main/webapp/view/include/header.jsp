@@ -73,7 +73,7 @@
                         Service
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" onclick="location.href='/facility?action=displayServiceList'">Danh sách dịch vụ</a></li>
+                        <li><a class="dropdown-item" onclick="location.href='/facility'">Danh sách dịch vụ</a></li>
                         <li><a class="dropdown-item" onclick="location.href='/facility?action=displayAddService'">Thêm mới dịch vụ</a></li>
 
                     </ul>

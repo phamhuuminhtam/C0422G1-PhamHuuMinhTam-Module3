@@ -26,7 +26,9 @@
 <body>
 <%@include file="/view/include/header.jsp"%>
 <div class="container-fluid">
-    <p>${message}</p>
+    <c:if test="${message!=null}">
+        <p>${message}</p>
+    </c:if>
 <h2 CLASS="text-center">DANH SÁCH KHÁCH HÀNG</h2>
     <div class="row main mt-2 ">
         <table class="table table-striped"  id="tableCustomer">
