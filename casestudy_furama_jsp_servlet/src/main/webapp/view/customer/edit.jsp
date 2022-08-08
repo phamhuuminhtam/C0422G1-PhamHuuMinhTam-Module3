@@ -11,6 +11,11 @@
 <head>
     <title>Edit</title>
     <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+    <style>
+        p {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -24,33 +29,53 @@
         <div class="col-md-12">
             <label for="name" class="form-label">Họ tên</label>
             <input type="text" class="form-control" id="name" name="name" value="${customer.name}">
+            <c:if test="${name!=null}">
+                <p>${name}</p>
+            </c:if>
         </div>
         <div class="col-md-12">
             <label for="birthday" class="form-label">Ngày sinh </label>
             <input type="date" class="form-control" id="birthday" name="birthday" value="${customer.dayOfBirth}">
+            <c:if test="${dayOfBirth!=null}">
+                <p>${dayOfBirth}</p>
+            </c:if>
         </div>
         <div class="col-md-12">
             <label  class="form-label me-4">Giới tính </label>
-            <c:if test="${customer.gender=='Nam'}">
+            <c:if test="${customer.gender==null}">
+                <input type="radio"  class="form-check-input" name="gender" value="1" > Nam
+                <input type="radio" class="form-check-input" name="gender" value="0" >Nữ
+            </c:if>
+            <c:if test="${customer.gender=='1'}">
             <input type="radio"  class="form-check-input" name="gender" value="1" checked> Nam
                 <input type="radio" class="form-check-input" name="gender" value="0" >Nữ
             </c:if>
-            <c:if test="${customer.gender=='Nữ'}">
+            <c:if test="${customer.gender=='0'}">
                 <input type="radio"  class="form-check-input" name="gender" value="1" > Nam
-            <input type="radio" class="form-check-input" name="gender" value="0" checked>Nữ</c:if>
+            <input type="radio" class="form-check-input" name="gender" value="0" checked>Nữ
+            </c:if>
 
         </div>
         <div class="col-md-12">
             <label for="id_card" class="form-label">Số CMND</label>
             <input type="text" class="form-control" id="id_card"  name="id_card" value="${customer.personalCode}" >
+            <c:if test="${personalCode!=null}">
+                <p>${personalCode}</p>
+            </c:if>
         </div>
         <div class="col-md-12">
             <label for="phone" class="form-label">Số Điện Thoại</label>
             <input type="text" class="form-control" id="phone" name="phone" value="${customer.phoneNumber}">
+            <c:if test="${phone!=null}">
+                <p>${phone}</p>
+            </c:if>
         </div>
         <div class="col-md-12 " id="s1" >
             <label for="email" class="form-label">Email </label>
             <input type="text" class="form-control" id="email" name="email" value="${customer.email}">
+            <c:if test="${email!=null}">
+                <p>${email}</p>
+            </c:if>
         </div>
 
         <div class="col-md-12">

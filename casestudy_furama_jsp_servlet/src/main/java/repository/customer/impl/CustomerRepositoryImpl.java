@@ -41,17 +41,17 @@ public class CustomerRepositoryImpl implements CustomerRepository {
         int check;
         Connection connection =BaseConnection.getConnection();
         List<GuestType> guestTypeList = getGuestTypeList();
-        int guestTypeId=0;
-        for (GuestType g : guestTypeList){
-            if(customer.getTypeOfGuest().equals(g.getGuestTypeName())){
-                guestTypeId=g.getGuestTypeId();
-            }
-        }
+//        int guestTypeId=0;
+//        for (GuestType g : guestTypeList){
+//            if(customer.getTypeOfGuest().equals(g.getGuestTypeName())){
+//                guestTypeId=g.getGuestTypeId();
+//            }
+//        }
         int gender= Integer.parseInt(customer.getGender());
 
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CUSTOMER);
-            preparedStatement.setInt(1,guestTypeId);
+            preparedStatement.setInt(1, Integer.parseInt(customer.getTypeOfGuest()));
             preparedStatement.setString(2,customer.getName());
             preparedStatement.setDate(3, Date.valueOf(customer.getDayOfBirth()));
             preparedStatement.setInt(4,gender);
@@ -163,10 +163,10 @@ public class CustomerRepositoryImpl implements CustomerRepository {
                 String id =rs.getString(1);
                 String name =rs.getString(3);
                 LocalDate dayOfBirth = LocalDate.parse(rs.getString(4), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                String gender;
-                if(rs.getInt(5)==0) {
-                    gender = "Nữ";
-                }else  gender ="Nam";
+                String gender=rs.getString(5);
+//                if(rs.getInt(5)==0) {
+//                    gender = "Nữ";
+//                }else  gender ="Nam";
                 String personalCode = rs.getString(6);
                 String phoneNumber = rs.getString(7);
                 String email = rs.getString(8);

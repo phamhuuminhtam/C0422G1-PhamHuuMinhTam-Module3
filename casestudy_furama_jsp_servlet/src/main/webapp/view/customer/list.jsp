@@ -22,6 +22,7 @@
             background-attachment: fixed;
         }
     </style>
+
 </head>
 <body>
 <%@include file="/view/include/header.jsp"%>
@@ -115,8 +116,6 @@
     }
 </script>
 
-
-
 <%@include file="/view/include/footer.jsp"%>
 <script src="jquery/jquery-3.5.1.min.js"></script>
 <script src="datatable/js/jquery.dataTables.js"></script>
@@ -132,6 +131,5 @@
         } );
     } );
 </script>
-
 </body>
 </html>

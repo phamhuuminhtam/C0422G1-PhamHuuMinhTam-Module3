@@ -1,5 +1,6 @@
 package controller;
 
+import model.CustomerValidate;
 import model.GuestType;
 import model.person.Customer;
 import repository.customer.CustomerRepository;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "CustomerControllerServlet", value = "/customer")
 public class CustomerControllerServlet extends HttpServlet {
@@ -60,27 +62,49 @@ public class CustomerControllerServlet extends HttpServlet {
     }
 
     private void editCustomerById(HttpServletRequest request, HttpServletResponse response) {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int pId = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        LocalDate dayOfBirth = LocalDate.parse(request.getParameter("birthday"));
-        int gender = Integer.parseInt(request.getParameter("gender"));
-
+        String dayOfBirth = request.getParameter("birthday");
+        String gender = request.getParameter("gender");
         String personalCode = request.getParameter("id_card");
         String phoneNumber= request.getParameter("phone");
         String email= request.getParameter("email");
         String typeOfGuest = request.getParameter("customer_type_id");
         String address = request.getParameter("address");
-        Customer customer = new Customer(name,dayOfBirth,gender+"",personalCode,phoneNumber,email,typeOfGuest,address);
-        boolean check = customerService.edit(customer,id);
-        String message="";
-        if(check){
-            message="Tạo mới thành công";
-        }else message="Tạo mới thất bại";
+        CustomerValidate customerValidate = new CustomerValidate(name,dayOfBirth,gender,personalCode,phoneNumber,email,typeOfGuest,address);
+        Map<String, String> mapErrors = customerService.edit(customerValidate,pId);
 
-        List<Customer> customerList = customerService.findAll();
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
-        request.setAttribute("message",message);
-        request.setAttribute("customerList",customerList);
+
+//        List<Customer> customerList = customerService.findAll();
+//        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
+//        request.setAttribute("message",message);
+//        request.setAttribute("customerList",customerList);
+//        try {
+//            requestDispatcher.forward(request,response);
+//        } catch (ServletException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        String message="";
+        RequestDispatcher requestDispatcher;
+
+        List<GuestType> guestTypeList = customerService.getGuestTypeList();
+        if(mapErrors.size()>0){
+            for (Map.Entry<String, String> entry: mapErrors.entrySet()) {
+                request.setAttribute(entry.getKey(), entry.getValue());}
+            request.setAttribute("pId",pId);
+            request.setAttribute("customer",customerValidate);
+            request.setAttribute("guestTypeList",guestTypeList);
+            requestDispatcher = request.getRequestDispatcher("view/customer/edit.jsp");
+        }else {
+            message="Tạo mới thành công";
+            List<Customer> customerList = customerService.findAll();
+            requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
+            request.setAttribute("message",message);
+            request.setAttribute("customerList",customerList);
+        }
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {
@@ -116,26 +140,32 @@ public class CustomerControllerServlet extends HttpServlet {
 
     private void addNewCustomer(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
-        LocalDate dayOfBirth = LocalDate.parse(request.getParameter("birthday"));
-        int gender = Integer.parseInt(request.getParameter("gender"));
-
+        String dayOfBirth = request.getParameter("birthday");
+        String gender = request.getParameter("gender");
         String personalCode = request.getParameter("id_card");
         String phoneNumber= request.getParameter("phone");
         String email= request.getParameter("email");
         String typeOfGuest = request.getParameter("customer_type_id");
         String address = request.getParameter("address");
-        Customer customer = new Customer(name,dayOfBirth,gender+"",personalCode,phoneNumber,email,typeOfGuest,address);
-        boolean check =customerService.add(customer);
-
+        CustomerValidate customerValidate = new CustomerValidate(name,dayOfBirth,gender,personalCode,phoneNumber,email,typeOfGuest,address);
+        Map<String, String> mapErrors = customerService.add(customerValidate);
         String message="";
-        if(check){
-            message="Tạo mới thành công";
-        }else message="Tạo mới thất bại";
+        RequestDispatcher requestDispatcher;
 
-        List<Customer> customerList = customerService.findAll();
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
+        List<GuestType> guestTypeList = customerService.getGuestTypeList();
+        if(mapErrors.size()>0){
+            for (Map.Entry<String, String> entry: mapErrors.entrySet()) {
+                request.setAttribute(entry.getKey(), entry.getValue());}
+            request.setAttribute("customerValidate",customerValidate);
+            request.setAttribute("guestTypeList",guestTypeList);
+             requestDispatcher = request.getRequestDispatcher("view/customer/add.jsp");
+        }else {
+            message="Tạo mới thành công";
+            List<Customer> customerList = customerService.findAll();
+         requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
         request.setAttribute("message",message);
-        request.setAttribute("customerList",customerList);
+                request.setAttribute("customerList",customerList);
+        }
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {

@@ -1,13 +1,15 @@
 package service.customer;
 
+import model.CustomerValidate;
 import model.GuestType;
 import model.person.Customer;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CustomerService {
-    boolean add(Customer customer);
-    boolean edit(Customer customer,int id);
+    Map<String, String> add(CustomerValidate customerValidate);
+    Map<String, String> edit(CustomerValidate customerValidate ,int id);
     boolean delete(int id);
     List<Customer> search();
     List<Customer> findAll();
