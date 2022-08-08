@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: WSWINDOWS
@@ -60,7 +61,7 @@
                     <td>${status.count}</td>
                     <td>${facilityList.serviceName}</td>
                     <td>${facilityList.squareUse}</td>
-                    <td>${facilityList.cost}</td>
+                    <td><fmt:formatNumber value = "${facilityList.cost}" type = "number" pattern = "###,###"/></td>
                     <td>${facilityList.numberOfPeople}</td>
 
                     <td>
@@ -106,7 +107,7 @@
 
     <div class="row footer ">
         <div class="col-lg-12 bg-success d-flex justify-content-center" style="height: 100px">
-            <p class="mt-2"> © 2018 Furama Resort Danang.</p>
+            <p class="mt-2 text-white" > © 2018 Furama Resort Danang.</p>
         </div>
     </div>
 </div>
@@ -147,6 +148,8 @@
 <script src="datatable/js/jquery.dataTables.js"></script>
 <%--<script src="datatable/js/dataTables.bootstrap5.js"></script>--%>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+
 
 <script>
     $(document).ready(function() {

@@ -21,7 +21,7 @@
     <form class="row g-3" action="/facility?action=EditService&id=${pId}" method="post">
         <div class="col-md-12">
             <label class="form-label">Loại dịch vụ</label>
-            <select name="serviceType"  class="form-select" onchange="showServiceInput(this)">
+            <select name="serviceType"  class="form-select" onchange="showServiceInput(this)" id="serviceSelect">
                 <option value="None" disabled >Chọn loại dịch vụ</option>
                 <c:forEach items="${serviceTypes}" var="serviceTypes">
                     <c:choose >
