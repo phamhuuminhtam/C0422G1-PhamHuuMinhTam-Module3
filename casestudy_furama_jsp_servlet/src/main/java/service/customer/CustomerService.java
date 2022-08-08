@@ -1,5 +1,6 @@
 package service.customer;
 
+import model.GuestType;
 import model.person.Customer;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface CustomerService {
     List<Customer> search();
     List<Customer> findAll();
     Customer searchCustomer(int id_search);
-}
+     List<GuestType> getGuestTypeList();
+
+    }

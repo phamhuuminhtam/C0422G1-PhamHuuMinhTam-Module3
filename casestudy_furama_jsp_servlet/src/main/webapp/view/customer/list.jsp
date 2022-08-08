@@ -57,7 +57,14 @@
                 <td>${customerList.personalCode}</td>
                 <td>${customerList.phoneNumber}</td>
                 <td>${customerList.email}</td>
-                <td>${customerList.typeOfGuest}</td>
+
+                    <c:forEach items="${guestTypeList}" var="guestTypeList">
+                        <c:if test="${guestTypeList.guestTypeId==customerList.typeOfGuest}">
+                <td>${guestTypeList.guestTypeName} </td>
+                        </c:if>
+                    </c:forEach>
+
+
                 <td>${customerList.address}</td>
                 <td>
                     <a type="button" class="btn btn-primary" href="/customer?action=displayEditCustomer&id=${customerList.pId}">

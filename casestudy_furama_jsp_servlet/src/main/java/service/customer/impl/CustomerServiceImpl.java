@@ -1,5 +1,6 @@
 package service.customer.impl;
 
+import model.GuestType;
 import model.person.Customer;
 import repository.customer.CustomerRepository;
 import repository.customer.impl.CustomerRepositoryImpl;
@@ -40,4 +41,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer searchCustomer(int id_search) {
         return customerRepository.searchCustomer(id_search);
     }
-}
+
+    public List<GuestType> getGuestTypeList(){
+        return customerRepository.getGuestTypeList();
+    }
+
+    }

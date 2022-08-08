@@ -183,8 +183,11 @@ public class CustomerControllerServlet extends HttpServlet {
     private void displayCustomerList(HttpServletRequest request, HttpServletResponse response) {
 
         List<Customer> customerList = customerService.findAll();
+        List<GuestType> guestTypeList=customerService.getGuestTypeList();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
         request.setAttribute("customerList",customerList);
+        request.setAttribute("guestTypeList",guestTypeList);
+
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {
