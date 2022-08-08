@@ -28,9 +28,11 @@
 
 <%@include file="/view/include/header.jsp"%>
 <div class="container-fluid">
-    <c:if test="${message!=null}">
-        <p>${message}</p>
-    </c:if>
+<%--    <c:if test="${message!=null}">--%>
+<%--        <p>${message}</p>--%>
+<%--    </c:if>--%>
+
+    <input value="${message}" id="message" hidden>
     <h2 CLASS="text-center">DANH SÁCH DỊCH VỤ</h2>
     <div class="row main mt-2 ">
         <table class="table table-striped" id="tableCustomer">
@@ -154,6 +156,11 @@
             "pageLength": 5
         } );
     } );
+
+    window.onload=function (){
+        if (document.getElementById("message").value!="")
+            alert(document.getElementById("message").value)
+    }
 </script>
 </body>
 </html>

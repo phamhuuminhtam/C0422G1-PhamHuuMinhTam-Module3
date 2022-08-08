@@ -5,12 +5,13 @@ import model.ServiceType;
 import model.facility.Facility;
 
 import java.util.List;
+import java.util.Map;
 
 public interface FacilityService {
 
-    boolean add(Facility facility);
+    Map<String, String> add(Facility facility);
 
-    boolean edit(Facility facility,int id);
+    Map<String, String> edit(Facility facility, int id);
 
     boolean delete(int id);
 
