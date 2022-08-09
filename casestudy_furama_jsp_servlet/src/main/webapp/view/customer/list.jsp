@@ -11,8 +11,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="datatable/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="/bootstrap520/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/datatables/css/dataTables.bootstrap5.min.css" />
     <style>
         .main {
             background-image: url(https://furamavietnam.com/wp-content/uploads/2018/08/BG2.jpg) ;
@@ -117,10 +117,12 @@
 </script>
 
 <%@include file="/view/include/footer.jsp"%>
-<script src="jquery/jquery-3.5.1.min.js"></script>
-<script src="datatable/js/jquery.dataTables.js"></script>
-<%--<script src="datatable/js/dataTables.bootstrap5.js"></script>--%>
+
+<script src="/jquery/jquery-3.5.1.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/datatables/js/dataTables.bootstrap5.min.js"></script>
+<%--<script src="/bootstrap/js/bootstrap.min.js"></script>--%>
 
 <script>
     $(document).ready(function() {

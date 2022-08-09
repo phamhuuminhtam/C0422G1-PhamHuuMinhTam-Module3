@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+
     <style>
         .main {
             background-image: url(https://furamavietnam.com/wp-content/uploads/2018/08/BG2.jpg) ;

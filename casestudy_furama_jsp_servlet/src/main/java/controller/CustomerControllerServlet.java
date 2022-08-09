@@ -103,6 +103,7 @@ public class CustomerControllerServlet extends HttpServlet {
             List<Customer> customerList = customerService.findAll();
             requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
             request.setAttribute("message",message);
+            request.setAttribute("guestTypeList",guestTypeList);
             request.setAttribute("customerList",customerList);
         }
         try {
@@ -164,6 +165,7 @@ public class CustomerControllerServlet extends HttpServlet {
             List<Customer> customerList = customerService.findAll();
          requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
         request.setAttribute("message",message);
+            request.setAttribute("guestTypeList",guestTypeList);
                 request.setAttribute("customerList",customerList);
         }
         try {
