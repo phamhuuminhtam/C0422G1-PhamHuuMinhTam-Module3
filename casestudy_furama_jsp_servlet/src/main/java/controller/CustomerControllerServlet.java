@@ -118,16 +118,19 @@ public class CustomerControllerServlet extends HttpServlet {
 
     private void deleteCustomerById(HttpServletRequest request, HttpServletResponse response) {
       boolean check;
+      
         int id = Integer.parseInt(request.getParameter("personid"));
      check= customerService.delete(id);
 //        String message="";
 //        if(check){
 //            message="Xóa thành công";
 //        }else message="Xóa thất bại";
+        List<GuestType> guestTypeList = customerService.getGuestTypeList();
         List<Customer> customerList = customerService.findAll();
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("view/customer/list.jsp");
 //        request.setAttribute("message",message);
         request.setAttribute("customerList",customerList);
+        request.setAttribute("guestTypeList",guestTypeList);
         try {
             requestDispatcher.forward(request,response);
         } catch (ServletException e) {

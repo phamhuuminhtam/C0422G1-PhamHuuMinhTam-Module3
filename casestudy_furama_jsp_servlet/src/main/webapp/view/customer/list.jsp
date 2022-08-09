@@ -1,11 +1,4 @@
 
-<%--
-  Created by IntelliJ IDEA.
-  User: WSWINDOWS
-  Date: 08/05/2022
-  Time: 9:40 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -27,9 +20,10 @@
 <body>
 <%@include file="/view/include/header.jsp"%>
 <div class="container-fluid">
-    <c:if test="${message!=null}">
-        <p>${message}</p>
-    </c:if>
+<%--    <c:if test="${message!=null}">--%>
+<%--        <p>${message}</p>--%>
+<%--    </c:if>--%>
+    <input value="${message}" id="message" hidden>
 <h2 CLASS="text-center">DANH SÁCH KHÁCH HÀNG</h2>
     <div class="row main mt-2 ">
         <table class="table table-striped"  id="tableCustomer">
@@ -108,6 +102,27 @@
     </div>
 </div>
 
+
+<div class="modal fade" id="modalAlert" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/customer?action=deleteCustomer" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >Thông báo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body container-fluid">
+                   <p id="modalAlertMes"></p>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     function showModalDelete(a,b) {
         document.getElementById("delete_modal").innerText=b;
@@ -132,6 +147,16 @@
             "pageLength": 5
         } );
     } );
+
+    window.onload=function (){
+        var message = document.getElementById("message").value;
+        document.getElementById("modalAlertMes").innerText=message;
+        if (message!="" && message!=null ){
+            $(document).ready(function(){
+                    $('#modalAlert').modal("show")}
+            )
+        }
+    }
 </script>
 </body>
 </html>

@@ -77,8 +77,8 @@
 
         <div class="col-md-12">
             <label class="form-label">Loại khách </label>
-            <select name="customer_type_id"  class="form-select" >
-                <option value="None" disabled >Chọn loại khách</option>
+            <select name="customer_type_id"  class="form-select" required>
+                <option value="None" disabled selected>Chọn loại khách</option>
                 <c:forEach var="guestTypeList" items="${guestTypeList}">
                     <c:choose>
                         <c:when test="${customerValidate.typeOfGuest==guestTypeList.guestTypeId}">

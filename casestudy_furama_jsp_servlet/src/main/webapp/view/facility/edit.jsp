@@ -39,28 +39,28 @@
 
         <div class="col-md-12">
             <label for="name" class="form-label">Tên dịch vụ</label>
-            <input type="text" class="form-control" id="name" name="name" value="${facility.serviceName}">
+            <input type="text" class="form-control" id="name" name="name" value="${facility.serviceName}" required>
             <c:if test="${name!=null}">
                 <p>${name}</p>
             </c:if>
         </div>
         <div class="col-md-12">
             <label for="area" class="form-label">Diện tích sử dụng</label>
-            <input type="number" class="form-control" id="area" name="area" value="${facility.squareUse}">
+            <input type="number" class="form-control" id="area" name="area" value="${facility.squareUse}" required>
             <c:if test="${useSquare!=null}">
                 <p>${useSquare}</p>
             </c:if>
         </div>
         <div class="col-md-12">
             <label for="cost" class="form-label">Chi phí thuê</label>
-            <input type="number" class="form-control" id="cost"  name="cost" value="${facility.cost}" >
+            <input type="number" class="form-control" id="cost"  name="cost" value="${facility.cost}" required>
             <c:if test="${cost!=null}">
                 <p>${cost}</p>
             </c:if>
         </div>
         <div class="col-md-12">
             <label for="max_people" class="form-label">Số lượng người tối đa </label>
-            <input type="number" class="form-control" id="max_people"  name="max_people" value="${facility.numberOfPeople}">
+            <input type="number" class="form-control" id="max_people"  name="max_people" value="${facility.numberOfPeople}" required>
             <c:if test="${numberOfPeople!=null}">
                 <p>${numberOfPeople}</p>
             </c:if>
@@ -85,17 +85,17 @@
         </div>
         <div class="col-md-12 " id="s1" style="display: none">
             <label for="standard_room" class="form-label">Tiêu chuẩn phòng </label>
-            <input type="text" class="form-control" id="standard_room" name="standard_room" value="${facility.roomStandard}">
+            <input type="text" class="form-control" id="standard_room" name="standard_room" value="${facility.roomStandard}" required>
         </div>
 
         <div class="col-md-12 " id="s2" style="display: none">
             <label for="description_other_convenience" class="form-label">Mô tả tiện nghi khác</label>
-            <input type="text" class="form-control" id="description_other_convenience" name="description_other_convenience" value="${facility.descriptionOtherConvenience}">
+            <input type="text" class="form-control" id="description_other_convenience" name="description_other_convenience" value="${facility.descriptionOtherConvenience}" >
         </div>
 
         <div class="col-md-12 " id="s3" style="display: none">
             <label for="pool_area" class="form-label">Diện tích hồ bơi  </label>
-            <input type="number" class="form-control" id="pool_area" name="pool_area" value="${facility.poolArea}">
+            <input type="number" class="form-control" id="pool_area" name="pool_area" value="${facility.poolArea}" >
             <c:if test="${poolArea!=null}">
                 <p>${poolArea}</p>
             </c:if>
@@ -111,7 +111,7 @@
 
         <div class="col-md-12 " id="s5" style="display: none">
             <label for="facility_free" class="form-label">Dịch vụ miễn phí đi kèm </label>
-            <input type="text" class="form-control" id="facility_free" name="facility_free" value="${facility.freeServiceAdd}">
+            <input type="text" class="form-control" id="facility_free" name="facility_free" value="${facility.freeServiceAdd}" >
         </div>
 
         <div class="col-12 ">
